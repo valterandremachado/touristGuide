@@ -3,25 +3,56 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A69BEFD2414A3E8004E51DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A69BEFC2414A3E8004E51DF /* Extensions.swift */; };
+		8A69BF022414AC09004E51DF /* image2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BEFF2414AC08004E51DF /* image2.jpg */; };
+		8A69BF032414AC09004E51DF /* image3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF002414AC08004E51DF /* image3.jpg */; };
+		8A69BF042414AC09004E51DF /* image1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF012414AC09004E51DF /* image1.jpg */; };
+		8A69BF082414E428004E51DF /* park1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF052414E427004E51DF /* park1.jpg */; };
+		8A69BF092414E428004E51DF /* park2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF062414E427004E51DF /* park2.jpg */; };
+		8A69BF0A2414E428004E51DF /* park3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF072414E428004E51DF /* park3.jpg */; };
+		8A69BF0E2414ED43004E51DF /* restaurant1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF0B2414ED42004E51DF /* restaurant1.jpg */; };
+		8A69BF0F2414ED43004E51DF /* restaurant2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF0C2414ED42004E51DF /* restaurant2.jpg */; };
+		8A69BF142414F0FB004E51DF /* restaurant3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF132414F0FB004E51DF /* restaurant3.jpg */; };
 		8A6DD96C2413AEA900D52DC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD96B2413AEA900D52DC0 /* AppDelegate.swift */; };
 		8A6DD96E2413AEA900D52DC0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD96D2413AEA900D52DC0 /* SceneDelegate.swift */; };
-		8A6DD9702413AEA900D52DC0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD96F2413AEA900D52DC0 /* ViewController.swift */; };
 		8A6DD9752413AEAE00D52DC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6DD9742413AEAE00D52DC0 /* Assets.xcassets */; };
 		8A6DD9782413AEAE00D52DC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6DD9762413AEAE00D52DC0 /* LaunchScreen.storyboard */; };
+		8A6DD9812413B52F00D52DC0 /* LBTATools in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6DD9802413B52F00D52DC0 /* LBTATools */; };
+		8A6DD9882413C9A200D52DC0 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD9872413C9A200D52DC0 /* HomeVC.swift */; };
+		8A6DD98A2413CA1800D52DC0 /* HotelsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD9892413CA1800D52DC0 /* HotelsCell.swift */; };
+		8A6DD98C2413CA3300D52DC0 /* TouristSpotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD98B2413CA3300D52DC0 /* TouristSpotsCell.swift */; };
+		8A6DD98E2413CA4B00D52DC0 /* RestaurantsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD98D2413CA4B00D52DC0 /* RestaurantsCell.swift */; };
+		8A6DD9902413CA6A00D52DC0 /* BusStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD98F2413CA6A00D52DC0 /* BusStopCell.swift */; };
+		8A6DD9922413ED5D00D52DC0 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD9912413ED5D00D52DC0 /* Header.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A69BEFC2414A3E8004E51DF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8A69BEFF2414AC08004E51DF /* image2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image2.jpg; sourceTree = "<group>"; };
+		8A69BF002414AC08004E51DF /* image3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image3.jpg; sourceTree = "<group>"; };
+		8A69BF012414AC09004E51DF /* image1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image1.jpg; sourceTree = "<group>"; };
+		8A69BF052414E427004E51DF /* park1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = park1.jpg; sourceTree = "<group>"; };
+		8A69BF062414E427004E51DF /* park2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = park2.jpg; sourceTree = "<group>"; };
+		8A69BF072414E428004E51DF /* park3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = park3.jpg; sourceTree = "<group>"; };
+		8A69BF0B2414ED42004E51DF /* restaurant1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = restaurant1.jpg; sourceTree = "<group>"; };
+		8A69BF0C2414ED42004E51DF /* restaurant2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = restaurant2.jpg; sourceTree = "<group>"; };
+		8A69BF132414F0FB004E51DF /* restaurant3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = restaurant3.jpg; sourceTree = "<group>"; };
 		8A6DD9682413AEA900D52DC0 /* GuideTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6DD96B2413AEA900D52DC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A6DD96D2413AEA900D52DC0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8A6DD96F2413AEA900D52DC0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8A6DD9742413AEAE00D52DC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A6DD9772413AEAE00D52DC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A6DD9792413AEAE00D52DC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A6DD9872413C9A200D52DC0 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		8A6DD9892413CA1800D52DC0 /* HotelsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsCell.swift; sourceTree = "<group>"; };
+		8A6DD98B2413CA3300D52DC0 /* TouristSpotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouristSpotsCell.swift; sourceTree = "<group>"; };
+		8A6DD98D2413CA4B00D52DC0 /* RestaurantsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsCell.swift; sourceTree = "<group>"; };
+		8A6DD98F2413CA6A00D52DC0 /* BusStopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopCell.swift; sourceTree = "<group>"; };
+		8A6DD9912413ED5D00D52DC0 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,12 +60,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A6DD9812413B52F00D52DC0 /* LBTATools in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A69BEFB2414A3CB004E51DF /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				8A69BEFC2414A3E8004E51DF /* Extensions.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		8A69BEFE2414ABEB004E51DF /* images */ = {
+			isa = PBXGroup;
+			children = (
+				8A69BF012414AC09004E51DF /* image1.jpg */,
+				8A69BEFF2414AC08004E51DF /* image2.jpg */,
+				8A69BF002414AC08004E51DF /* image3.jpg */,
+				8A69BF052414E427004E51DF /* park1.jpg */,
+				8A69BF062414E427004E51DF /* park2.jpg */,
+				8A69BF072414E428004E51DF /* park3.jpg */,
+				8A69BF0B2414ED42004E51DF /* restaurant1.jpg */,
+				8A69BF0C2414ED42004E51DF /* restaurant2.jpg */,
+				8A69BF132414F0FB004E51DF /* restaurant3.jpg */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		8A6DD95F2413AEA900D52DC0 = {
 			isa = PBXGroup;
 			children = (
@@ -54,14 +110,45 @@
 		8A6DD96A2413AEA900D52DC0 /* GuideTech */ = {
 			isa = PBXGroup;
 			children = (
+				8A69BEFE2414ABEB004E51DF /* images */,
+				8A69BEFB2414A3CB004E51DF /* utils */,
+				8A6DD9832413B83D00D52DC0 /* Model */,
+				8A6DD9842413B84300D52DC0 /* View */,
+				8A6DD9822413B82F00D52DC0 /* Controller */,
 				8A6DD96B2413AEA900D52DC0 /* AppDelegate.swift */,
 				8A6DD96D2413AEA900D52DC0 /* SceneDelegate.swift */,
-				8A6DD96F2413AEA900D52DC0 /* ViewController.swift */,
 				8A6DD9742413AEAE00D52DC0 /* Assets.xcassets */,
 				8A6DD9762413AEAE00D52DC0 /* LaunchScreen.storyboard */,
 				8A6DD9792413AEAE00D52DC0 /* Info.plist */,
 			);
 			path = GuideTech;
+			sourceTree = "<group>";
+		};
+		8A6DD9822413B82F00D52DC0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8A6DD9872413C9A200D52DC0 /* HomeVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8A6DD9832413B83D00D52DC0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8A6DD9842413B84300D52DC0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A6DD9892413CA1800D52DC0 /* HotelsCell.swift */,
+				8A6DD98B2413CA3300D52DC0 /* TouristSpotsCell.swift */,
+				8A6DD98D2413CA4B00D52DC0 /* RestaurantsCell.swift */,
+				8A6DD98F2413CA6A00D52DC0 /* BusStopCell.swift */,
+				8A6DD9912413ED5D00D52DC0 /* Header.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +167,9 @@
 			dependencies = (
 			);
 			name = GuideTech;
+			packageProductDependencies = (
+				8A6DD9802413B52F00D52DC0 /* LBTATools */,
+			);
 			productName = GuideTech;
 			productReference = 8A6DD9682413AEA900D52DC0 /* GuideTech.app */;
 			productType = "com.apple.product-type.application";
@@ -108,6 +198,9 @@
 				Base,
 			);
 			mainGroup = 8A6DD95F2413AEA900D52DC0;
+			packageReferences = (
+				8A6DD97F2413B52F00D52DC0 /* XCRemoteSwiftPackageReference "LBTATools" */,
+			);
 			productRefGroup = 8A6DD9692413AEA900D52DC0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -122,8 +215,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A69BF0E2414ED43004E51DF /* restaurant1.jpg in Resources */,
 				8A6DD9782413AEAE00D52DC0 /* LaunchScreen.storyboard in Resources */,
+				8A69BF0A2414E428004E51DF /* park3.jpg in Resources */,
+				8A69BF142414F0FB004E51DF /* restaurant3.jpg in Resources */,
+				8A69BF082414E428004E51DF /* park1.jpg in Resources */,
+				8A69BF042414AC09004E51DF /* image1.jpg in Resources */,
+				8A69BF092414E428004E51DF /* park2.jpg in Resources */,
 				8A6DD9752413AEAE00D52DC0 /* Assets.xcassets in Resources */,
+				8A69BF022414AC09004E51DF /* image2.jpg in Resources */,
+				8A69BF032414AC09004E51DF /* image3.jpg in Resources */,
+				8A69BF0F2414ED43004E51DF /* restaurant2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,8 +236,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A6DD9702413AEA900D52DC0 /* ViewController.swift in Sources */,
+				8A6DD9922413ED5D00D52DC0 /* Header.swift in Sources */,
+				8A69BEFD2414A3E8004E51DF /* Extensions.swift in Sources */,
+				8A6DD98A2413CA1800D52DC0 /* HotelsCell.swift in Sources */,
 				8A6DD96C2413AEA900D52DC0 /* AppDelegate.swift in Sources */,
+				8A6DD98E2413CA4B00D52DC0 /* RestaurantsCell.swift in Sources */,
+				8A6DD98C2413CA3300D52DC0 /* TouristSpotsCell.swift in Sources */,
+				8A6DD9902413CA6A00D52DC0 /* BusStopCell.swift in Sources */,
+				8A6DD9882413C9A200D52DC0 /* HomeVC.swift in Sources */,
 				8A6DD96E2413AEA900D52DC0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +434,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8A6DD97F2413B52F00D52DC0 /* XCRemoteSwiftPackageReference "LBTATools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bhlvoong/LBTATools";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.17;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8A6DD9802413B52F00D52DC0 /* LBTATools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A6DD97F2413B52F00D52DC0 /* XCRemoteSwiftPackageReference "LBTATools" */;
+			productName = LBTATools;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8A6DD9602413AEA900D52DC0 /* Project object */;
 }
