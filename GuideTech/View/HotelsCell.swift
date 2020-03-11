@@ -8,20 +8,37 @@
 
 import UIKit
 import LBTATools
+import Alamofire
+import SwiftyJSON
+
+struct Hotels: Decodable {
+    let id: Int
+    let fullName: String
+    let label: String
+    
+}
 
 class HotelsCell: UICollectionViewCell {
+    
+    var nameArray = [String:Any]()
+
     private let cellID = "cellId"
+    var textlabel = UILabel()
     
     var images: [String]? {
         didSet{
            collectionView.reloadData()
         }
     }
-    var names: [String]? {
-        didSet{
-           collectionView.reloadData()
-        }
-    }
+//    let names2 = ["Venis", "CityLights", "Porta Vaga", "m", "er"]
+
+//    var names: [String: Any]? {
+//        didSet{
+//           collectionView.reloadData()
+//        }
+//    }
+    var names = [[String: AnyObject]]()
+    
     var addresses: [String]? {
         didSet{
            collectionView.reloadData()
@@ -64,6 +81,7 @@ class HotelsCell: UICollectionViewCell {
         super.init(frame: .zero)
             setupView()
 //        contentView.backgroundColor = .blue
+        fetchJSONData()
     }
         
    fileprivate  func setupView(){
@@ -78,33 +96,109 @@ class HotelsCell: UICollectionViewCell {
 }
 
 extension HotelsCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    func fetchJSONData(){
+        
+        let parameter = [
+            "locale": "en_US",
+               "children1": "5%2C11",
+               "currency": "USD",
+               "checkOut": "2020-01-15",
+               "adults1": "1",
+               "checkIn": "2020-01-08",
+               "id": "424023"
+            
+        ]
+        // MARK: API ongoing
+        let url = "http://engine.hotellook.com/api/v2/lookup.json?query=baguio&lang=ph&lookFor=hotel&limit=1&token=3d8bb509add7ca310546f2b400129cc2"
+        
+//        let url2 = "https://hotels4.p.rapidapi.com/properties/get-details"
+//        let headers = [
+//            "x-rapidapi-host": "hotels4.p.rapidapi.com",
+//             "x-rapidapi-key": "d681da975cmsh96f870b28c81334p15a2a3jsna9db3bed0d9a"
+//        ]
+        
+        let url3 = "http://engine.hotellook.com/api/v2/static/hotels.json?locationId=24530&token=3d8bb509add7ca310546f2b400129cc2"
+        
+        Alamofire.request(url3, method: .get, encoding: JSONEncoding.default)
+            .responseJSON { (response) in
+
+               if let JSON = response.result.value as? [String:AnyObject] {
+//                print(JSON["pois"] as Any)
+//                let hotelDetails = JSON["results"]!["hotels"]!!
+                let hotelDetails = JSON["hotels"]
+//
+                self.names = hotelDetails as! [[String : AnyObject]]
+//                if let nestedDictionary1 = JSON["results"] as? [String: AnyObject] {
+//                    // access individual value in dictionary
+//
+//                    if let views = nestedDictionary1["hotels"] as? String {
+//                         print(JSON)
+//                    }
+//                }
+                }
+//                if let responseValue = response.result.value as! [String: AnyObject]?{
+//
+//                    if let responseHotels = responseValue["results"] as! [String: AnyObject]? {
+////                        self.names = [responseHotels]
+//                        for dic in self.names {
+//                               let agreementId = dic["hotels"] as? String ?? "N/A"//Set default value instead N/A
+//                               print(agreementId)
+//                               //access the other key-value same way
+//                           }
+//
+//                    }
+//
+                    if self.names.count > 0 {
+//                        print(self.names)
+                        self.collectionView.reloadData()
+                    }
+//                }
+        }
+        
+    }
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images!.count
+        return names.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! HotelIconsCell
         
-        if let imageName = images?[indexPath.item]{
-            cell.coverImageView.image = UIImage(named: imageName)
-        }
+//        if let imageName = images?[indexPath.item]{
+//            cell.coverImageView.image = UIImage(named: imageName)
+//        }
+        let index = names[indexPath.row]
         
-        if let names = names?[indexPath.item]{
-            cell.name.text = names
-        }
+//        let arrayOfNames = names[indexPath.row]
         
-        if let addresses = addresses?[indexPath.item]{
-            cell.address.text = addresses
+        let starsInt = index["stars"] as? Int
+        if starsInt ?? 0 >= 3 {
+        cell.name.text = index["checkIn"] as? String
+        cell.review.text = "\(starsInt ?? 0) ★"
         }
+//        print(arrayOfNames["name"] as? String)
+//         let names = names[indexPath.item]
+//            cell.name.text = names
+
+
+//        if self.names.count > 0 {
+//            let eachHotel = self.names[indexPath.row]
+//            cell.name.text = (eachHotel["label"] as? String) ?? "N/A"
+//            print(eachHotel)
+//        }
         
-        if let prices = prices?[indexPath.item]{
-            cell.pricePerNight.text = prices
-        }
+//        if let addresses = addresses?[indexPath.item]{
+//            cell.address.text = addresses
+//        }
         
-        if let reviews = reviews?[indexPath.item]{
-            cell.review.text = reviews
-        }
+//        if let prices = prices?[indexPath.item]{
+//            cell.pricePerNight.text = prices
+//        }
+//
+//        if let reviews = reviews?[indexPath.item]{
+//            cell.review.text = reviews
+//        }
 //        cell.coverImageView.backgroundColor = .blue
 //        cell.name.backgroundColor = .blue
 //        cell.address.backgroundColor = .blue
@@ -145,7 +239,15 @@ class HotelIconsCell: UICollectionViewCell {
     lazy var name: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-//        lbl.backgroundColor = .blue
+        //        lbl.backgroundColor = .blue
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.numberOfLines = 0 // 0 = as many lines as the label needs
+        lbl.frame.origin.x = 32
+        lbl.frame.origin.y = 32
+        lbl.frame.size.width = self.bounds.width - 64
+        lbl.font = UIFont.boldSystemFont(ofSize: 13) // my UIFont extension
+        lbl.textColor = UIColor.black
+        lbl.sizeToFit()
         return lbl
     }()
     // address

@@ -7,6 +7,7 @@
 //
 import UIKit
 import LBTATools
+import Alamofire
 
 let hotelsCellID = "hotelsCell"
 let touristSpotsCellID = "touristSpotsCell"
@@ -14,14 +15,15 @@ let restaurantsCellID = "restaurantsCell"
 let busStopCellID = "busStopCell"
 let headerID = "header"
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController, UISearchBarDelegate {
     
     let colorArray = [UIColor.blue, UIColor.green, UIColor.blue, UIColor.gray, UIColor.yellow]
     // hotel arrays
     let imageArray = ["image1.jpg", "image2.jpg", "image3.jpg"]
-    let nameArray = ["Venis", "CityLights", "Porta Vaga"]
+//    let nameArray = ["Venis", "CityLights", "Porta Vaga", "m"]
+    var nameArray = [String: AnyObject]()
     let addressArray = ["Address", "Address", "Address"]
-    let priceArray = ["₱5,000", "₱5,000", " ₱5,000"]
+    let priceArray = ["$100", "$100", "$100"]
     let reviewArray = ["5 ★", "5 ★", "5 ★"]
     
     // tourist Spot arrays
@@ -45,7 +47,7 @@ class HomeVC: UIViewController {
     
     var filteredArray = [String]()
     var isSearching = false
-    lazy var searchBar: UISearchBar = {
+    lazy var mainSearchBar: UISearchBar = {
         let sb = UISearchBar()
         sb.translatesAutoresizingMaskIntoConstraints = false
         
@@ -57,6 +59,9 @@ class HomeVC: UIViewController {
 //        sb.clipsToBounds = false
         sb.backgroundImage = UIImage()
         sb.placeholder = "Search"
+        
+        sb.returnKeyType = UIReturnKeyType.done
+        sb.delegate = self
 
         return sb
     }()
@@ -80,7 +85,8 @@ class HomeVC: UIViewController {
         cv.register(Header.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerID)
         return cv
     }()
-    
+    typealias WebResponse = ([String: Any]?, Error?)-> Void
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -89,19 +95,65 @@ class HomeVC: UIViewController {
         
         view.backgroundColor = .white
         setView()
+//        fetchJSONData()
     }
 
     fileprivate func setView(){
-        [collectionView, searchBar].forEach({view.addSubview($0)})
+        [collectionView, mainSearchBar].forEach({view.addSubview($0)})
         
-        searchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
-        collectionView.anchor(top: searchBar.bottomAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+        mainSearchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
+        collectionView.anchor(top: mainSearchBar.bottomAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
 //        searchBars = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 0))
     }
 
 }
 
-extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+
+extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
+    
+//    func fetchJSONData(){
+//
+//        //        let header = [
+//        //            "cityName": "Baguio",
+//        //            "countryCode": "PH",
+//        //            "countryName": "Philippines",
+//        //        ]
+//        //
+//        //        let parameters: Parameters = [
+//        //            //            "id": "424023"
+//        //            "countryName": "Philippines"
+//        //        ]
+//        //
+//        // MARK: API ongoing
+//        let url = "http://engine.hotellook.com/api/v2/lookup.json?query=baguiocity&lang=ph&lookFor=both&limit=1&token=PasteYourTokenHere"
+//
+//
+//        Alamofire.request(url, method: .get)
+//            .responseJSON { (response) in
+//                //                debugPrint(response)
+//                if let responseValue = response.result.value as! [String: Any]?{
+//                    //                    print(responseValue)
+//                    if let responseHotels = responseValue["results"] as! [String:Any]?{
+////                        self.nameArray = responseHotels
+////                        print(responseHotels)
+//                    }
+//                }
+//        }
+//
+//    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        if mainSearchBar.text == nil || mainSearchBar.text == ""{
+//            isSearching = false
+//            view.endEditing(true)
+//            collectionView.reloadData()
+//        }else{
+//            isSearching = true
+//            filteredArray = nameArray.filter({$0.range(of: mainSearchBar.text!, options: .caseInsensitive) != nil })
+//            collectionView.reloadData()
+//        }
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
     }
@@ -109,37 +161,49 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         
         if section <= 2
         {
+//            if isSearching {
+//                return filteredArray.count
+//            }
             return 1
         }
-//        else
-//        {
-//            
-//        }
+        //        else
+        //        {
+        //
+        //        }
         return nameArray4.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //        var device: String?
+        //
+        //        if isSearching {
+        //            device = filteredArray[indexPath.row]
+        //        }else{
+        //            device = nameArray[indexPath.row]
+        //        }
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: hotelsCellID, for: indexPath) as! HotelsCell
         
         switch indexPath.section {
         case 0:
             // hotels cell
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: hotelsCellID, for: indexPath) as! HotelsCell
-//             cell.iconCell.coverImageView.backgroundColor = .blue
-             cell.images = imageArray
-             cell.names = nameArray
-             cell.addresses = addressArray
-             cell.prices = priceArray
-             cell.reviews = reviewArray
-
-             return cell
+            //             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: hotelsCellID, for: indexPath) as! HotelsCell
+            //             cell.iconCell.coverImageView.backgroundColor = .blue
+            cell.names = [nameArray]
+            
+            cell.images = imageArray
+            cell.addresses = addressArray
+            cell.prices = priceArray
+            cell.reviews = reviewArray
+            //             cell.textlabel.text = device
+            return cell
         case 1:
             // tourist spots cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: touristSpotsCellID, for: indexPath) as! TouristSpotsCell
             
             cell.images = imageArray2
             cell.names = nameArray2
-//            cell.descriptions = descriptionArray
+            //            cell.descriptions = descriptionArray
             cell.reviews = reviewArray2
             cell.addresses = addressArray2
             
@@ -150,7 +214,7 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
             
             cell.images = imageArray3
             cell.names = nameArray3
-//            cell.descriptions = descriptionArray
+            //            cell.descriptions = descriptionArray
             cell.reviews = reviewArray3
             cell.addresses = addressArray3
             
@@ -167,7 +231,6 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         default:
             break
         }
-        
         return cell
     }
     
@@ -178,22 +241,22 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         }
         return CGSize(width: view.frame.width - 19, height: 80)
     }
-   
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if section <= 2
         {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
+            return UIEdgeInsets(top: -10, left: 0, bottom: 8, right: 0)
         }
         return UIEdgeInsets(top: 20, left: 8, bottom: 8, right: 8)
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind:
-               String, at indexPath: IndexPath) -> UICollectionReusableView {
+        String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:
-                       headerID, for: indexPath) as! Header
-//        header.backgroundColor = .yellow
-
+            headerID, for: indexPath) as! Header
+        //        header.backgroundColor = .yellow
+        
         switch indexPath.section {
         case 0:
             header.sectionTitle.text = "Hotels"
@@ -213,12 +276,12 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-            return CGSize(width: collectionView.frame.width, height: 20)
+        return CGSize(width: collectionView.frame.width, height: 20)
     }
     
-//        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//            return CGSize(width: 60.0, height: 30.0)
-//    }
+    //        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+    //            return CGSize(width: 60.0, height: 30.0)
+    //    }
 }
 
 

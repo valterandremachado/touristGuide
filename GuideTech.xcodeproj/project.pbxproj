@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A5A625124169051007A4A1D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5A625024169051007A4A1D /* Alamofire */; };
+		8A5A62542417E43E007A4A1D /* TrashBinCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A62532417E43E007A4A1D /* TrashBinCode.swift */; };
+		8A5A625724192530007A4A1D /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5A625624192530007A4A1D /* SwiftyJSON */; };
 		8A69BEFD2414A3E8004E51DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A69BEFC2414A3E8004E51DF /* Extensions.swift */; };
 		8A69BF022414AC09004E51DF /* image2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BEFF2414AC08004E51DF /* image2.jpg */; };
 		8A69BF032414AC09004E51DF /* image3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF002414AC08004E51DF /* image3.jpg */; };
@@ -17,6 +20,7 @@
 		8A69BF0E2414ED43004E51DF /* restaurant1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF0B2414ED42004E51DF /* restaurant1.jpg */; };
 		8A69BF0F2414ED43004E51DF /* restaurant2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF0C2414ED42004E51DF /* restaurant2.jpg */; };
 		8A69BF142414F0FB004E51DF /* restaurant3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A69BF132414F0FB004E51DF /* restaurant3.jpg */; };
+		8A69BF16241533FB004E51DF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A69BF15241533FB004E51DF /* Model.swift */; };
 		8A6DD96C2413AEA900D52DC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD96B2413AEA900D52DC0 /* AppDelegate.swift */; };
 		8A6DD96E2413AEA900D52DC0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD96D2413AEA900D52DC0 /* SceneDelegate.swift */; };
 		8A6DD9752413AEAE00D52DC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6DD9742413AEAE00D52DC0 /* Assets.xcassets */; };
@@ -31,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A5A62532417E43E007A4A1D /* TrashBinCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashBinCode.swift; sourceTree = "<group>"; };
 		8A69BEFC2414A3E8004E51DF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8A69BEFF2414AC08004E51DF /* image2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image2.jpg; sourceTree = "<group>"; };
 		8A69BF002414AC08004E51DF /* image3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image3.jpg; sourceTree = "<group>"; };
@@ -41,6 +46,7 @@
 		8A69BF0B2414ED42004E51DF /* restaurant1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = restaurant1.jpg; sourceTree = "<group>"; };
 		8A69BF0C2414ED42004E51DF /* restaurant2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = restaurant2.jpg; sourceTree = "<group>"; };
 		8A69BF132414F0FB004E51DF /* restaurant3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = restaurant3.jpg; sourceTree = "<group>"; };
+		8A69BF15241533FB004E51DF /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8A6DD9682413AEA900D52DC0 /* GuideTech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideTech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6DD96B2413AEA900D52DC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A6DD96D2413AEA900D52DC0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,7 +66,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A5A625724192530007A4A1D /* SwiftyJSON in Frameworks */,
 				8A6DD9812413B52F00D52DC0 /* LBTATools in Frameworks */,
+				8A5A625124169051007A4A1D /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				8A69BEFC2414A3E8004E51DF /* Extensions.swift */,
+				8A5A62532417E43E007A4A1D /* TrashBinCode.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -135,6 +144,7 @@
 		8A6DD9832413B83D00D52DC0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8A69BF15241533FB004E51DF /* Model.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -169,6 +179,8 @@
 			name = GuideTech;
 			packageProductDependencies = (
 				8A6DD9802413B52F00D52DC0 /* LBTATools */,
+				8A5A625024169051007A4A1D /* Alamofire */,
+				8A5A625624192530007A4A1D /* SwiftyJSON */,
 			);
 			productName = GuideTech;
 			productReference = 8A6DD9682413AEA900D52DC0 /* GuideTech.app */;
@@ -200,6 +212,8 @@
 			mainGroup = 8A6DD95F2413AEA900D52DC0;
 			packageReferences = (
 				8A6DD97F2413B52F00D52DC0 /* XCRemoteSwiftPackageReference "LBTATools" */,
+				8A5A624F24169051007A4A1D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				8A5A625524192530007A4A1D /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = 8A6DD9692413AEA900D52DC0 /* Products */;
 			projectDirPath = "";
@@ -241,9 +255,11 @@
 				8A6DD98A2413CA1800D52DC0 /* HotelsCell.swift in Sources */,
 				8A6DD96C2413AEA900D52DC0 /* AppDelegate.swift in Sources */,
 				8A6DD98E2413CA4B00D52DC0 /* RestaurantsCell.swift in Sources */,
+				8A69BF16241533FB004E51DF /* Model.swift in Sources */,
 				8A6DD98C2413CA3300D52DC0 /* TouristSpotsCell.swift in Sources */,
 				8A6DD9902413CA6A00D52DC0 /* BusStopCell.swift in Sources */,
 				8A6DD9882413C9A200D52DC0 /* HomeVC.swift in Sources */,
+				8A5A62542417E43E007A4A1D /* TrashBinCode.swift in Sources */,
 				8A6DD96E2413AEA900D52DC0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +452,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8A5A624F24169051007A4A1D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.2;
+			};
+		};
+		8A5A625524192530007A4A1D /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		8A6DD97F2413B52F00D52DC0 /* XCRemoteSwiftPackageReference "LBTATools" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/bhlvoong/LBTATools";
@@ -447,6 +479,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8A5A625024169051007A4A1D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A5A624F24169051007A4A1D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		8A5A625624192530007A4A1D /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A5A625524192530007A4A1D /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
 		8A6DD9802413B52F00D52DC0 /* LBTATools */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8A6DD97F2413B52F00D52DC0 /* XCRemoteSwiftPackageReference "LBTATools" */;
