@@ -7,7 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A5A625124169051007A4A1D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5A625024169051007A4A1D /* Alamofire */; };
+		8A0C3F70241D3F54009BAF25 /* HomeVCDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C3F6F241D3F54009BAF25 /* HomeVCDetails.swift */; };
+		8A0C3F74241D5120009BAF25 /* TabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C3F73241D5120009BAF25 /* TabVC.swift */; };
+		8A5596F2241E1973004940F3 /* guidetech-06.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A5596F1241E1973004940F3 /* guidetech-06.png */; };
+		8A5596F7241E70A1004940F3 /* MapsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5596F6241E70A1004940F3 /* MapsVC.swift */; };
+		8A5596F9241F5A44004940F3 /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5596F8241F5A44004940F3 /* ContainerVC.swift */; };
+		8A5596FF241F5AB3004940F3 /* MenuSliderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5596FE241F5AB3004940F3 /* MenuSliderVC.swift */; };
+		8A559701241F638C004940F3 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A559700241F638C004940F3 /* Protocols.swift */; };
+		8A559705241F6EA6004940F3 /* MenuSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A559704241F6EA5004940F3 /* MenuSliderCell.swift */; };
+		8A559707241F798E004940F3 /* MenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A559706241F798E004940F3 /* MenuOptions.swift */; };
+		8A55970A241F87B3004940F3 /* VoiceMappingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A559709241F87B3004940F3 /* VoiceMappingVC.swift */; };
+		8A55970C241F87BF004940F3 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55970B241F87BF004940F3 /* SettingsVC.swift */; };
+		8A55970E241F87D4004940F3 /* HelpCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55970D241F87D4004940F3 /* HelpCenterVC.swift */; };
 		8A5A62542417E43E007A4A1D /* TrashBinCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A62532417E43E007A4A1D /* TrashBinCode.swift */; };
 		8A5A625724192530007A4A1D /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 8A5A625624192530007A4A1D /* SwiftyJSON */; };
 		8A69BEFD2414A3E8004E51DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A69BEFC2414A3E8004E51DF /* Extensions.swift */; };
@@ -32,9 +43,24 @@
 		8A6DD98E2413CA4B00D52DC0 /* RestaurantsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD98D2413CA4B00D52DC0 /* RestaurantsCell.swift */; };
 		8A6DD9902413CA6A00D52DC0 /* BusStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD98F2413CA6A00D52DC0 /* BusStopCell.swift */; };
 		8A6DD9922413ED5D00D52DC0 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD9912413ED5D00D52DC0 /* Header.swift */; };
+		8C5A1D015EB04A47415F7CFA /* Pods_GuideTech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B743C305894F63553CF684EE /* Pods_GuideTech.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		651E353752CA3ACB40767F11 /* Pods-GuideTech.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuideTech.release.xcconfig"; path = "Target Support Files/Pods-GuideTech/Pods-GuideTech.release.xcconfig"; sourceTree = "<group>"; };
+		66DC5FF12404B91E1FDFFFD8 /* Pods-GuideTech.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuideTech.debug.xcconfig"; path = "Target Support Files/Pods-GuideTech/Pods-GuideTech.debug.xcconfig"; sourceTree = "<group>"; };
+		8A0C3F6F241D3F54009BAF25 /* HomeVCDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVCDetails.swift; sourceTree = "<group>"; };
+		8A0C3F73241D5120009BAF25 /* TabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabVC.swift; sourceTree = "<group>"; };
+		8A5596F1241E1973004940F3 /* guidetech-06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guidetech-06.png"; sourceTree = "<group>"; };
+		8A5596F6241E70A1004940F3 /* MapsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsVC.swift; sourceTree = "<group>"; };
+		8A5596F8241F5A44004940F3 /* ContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerVC.swift; sourceTree = "<group>"; };
+		8A5596FE241F5AB3004940F3 /* MenuSliderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSliderVC.swift; sourceTree = "<group>"; };
+		8A559700241F638C004940F3 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		8A559704241F6EA5004940F3 /* MenuSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSliderCell.swift; sourceTree = "<group>"; };
+		8A559706241F798E004940F3 /* MenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptions.swift; sourceTree = "<group>"; };
+		8A559709241F87B3004940F3 /* VoiceMappingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMappingVC.swift; sourceTree = "<group>"; };
+		8A55970B241F87BF004940F3 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		8A55970D241F87D4004940F3 /* HelpCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterVC.swift; sourceTree = "<group>"; };
 		8A5A62532417E43E007A4A1D /* TrashBinCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashBinCode.swift; sourceTree = "<group>"; };
 		8A69BEFC2414A3E8004E51DF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8A69BEFF2414AC08004E51DF /* image2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image2.jpg; sourceTree = "<group>"; };
@@ -59,6 +85,7 @@
 		8A6DD98D2413CA4B00D52DC0 /* RestaurantsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsCell.swift; sourceTree = "<group>"; };
 		8A6DD98F2413CA6A00D52DC0 /* BusStopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopCell.swift; sourceTree = "<group>"; };
 		8A6DD9912413ED5D00D52DC0 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		B743C305894F63553CF684EE /* Pods_GuideTech.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GuideTech.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,18 +95,38 @@
 			files = (
 				8A5A625724192530007A4A1D /* SwiftyJSON in Frameworks */,
 				8A6DD9812413B52F00D52DC0 /* LBTATools in Frameworks */,
-				8A5A625124169051007A4A1D /* Alamofire in Frameworks */,
+				8C5A1D015EB04A47415F7CFA /* Pods_GuideTech.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B424FB10763248ED9158034 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B743C305894F63553CF684EE /* Pods_GuideTech.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8A559708241F875B004940F3 /* MenuOptionsController */ = {
+			isa = PBXGroup;
+			children = (
+				8A5596FE241F5AB3004940F3 /* MenuSliderVC.swift */,
+				8A559709241F87B3004940F3 /* VoiceMappingVC.swift */,
+				8A55970B241F87BF004940F3 /* SettingsVC.swift */,
+				8A55970D241F87D4004940F3 /* HelpCenterVC.swift */,
+			);
+			path = MenuOptionsController;
+			sourceTree = "<group>";
+		};
 		8A69BEFB2414A3CB004E51DF /* utils */ = {
 			isa = PBXGroup;
 			children = (
 				8A69BEFC2414A3E8004E51DF /* Extensions.swift */,
 				8A5A62532417E43E007A4A1D /* TrashBinCode.swift */,
+				8A559700241F638C004940F3 /* Protocols.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -87,6 +134,7 @@
 		8A69BEFE2414ABEB004E51DF /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8A5596F1241E1973004940F3 /* guidetech-06.png */,
 				8A69BF012414AC09004E51DF /* image1.jpg */,
 				8A69BEFF2414AC08004E51DF /* image2.jpg */,
 				8A69BF002414AC08004E51DF /* image3.jpg */,
@@ -105,6 +153,8 @@
 			children = (
 				8A6DD96A2413AEA900D52DC0 /* GuideTech */,
 				8A6DD9692413AEA900D52DC0 /* Products */,
+				D106544028BF207332ECF6CC /* Pods */,
+				4B424FB10763248ED9158034 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,7 +186,12 @@
 		8A6DD9822413B82F00D52DC0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8A559708241F875B004940F3 /* MenuOptionsController */,
+				8A0C3F73241D5120009BAF25 /* TabVC.swift */,
 				8A6DD9872413C9A200D52DC0 /* HomeVC.swift */,
+				8A5596F8241F5A44004940F3 /* ContainerVC.swift */,
+				8A0C3F6F241D3F54009BAF25 /* HomeVCDetails.swift */,
+				8A5596F6241E70A1004940F3 /* MapsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -145,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				8A69BF15241533FB004E51DF /* Model.swift */,
+				8A559706241F798E004940F3 /* MenuOptions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -157,8 +213,18 @@
 				8A6DD98D2413CA4B00D52DC0 /* RestaurantsCell.swift */,
 				8A6DD98F2413CA6A00D52DC0 /* BusStopCell.swift */,
 				8A6DD9912413ED5D00D52DC0 /* Header.swift */,
+				8A559704241F6EA5004940F3 /* MenuSliderCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D106544028BF207332ECF6CC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				66DC5FF12404B91E1FDFFFD8 /* Pods-GuideTech.debug.xcconfig */,
+				651E353752CA3ACB40767F11 /* Pods-GuideTech.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,9 +234,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A6DD97C2413AEAE00D52DC0 /* Build configuration list for PBXNativeTarget "GuideTech" */;
 			buildPhases = (
+				902410D2688E93327C86DFBD /* [CP] Check Pods Manifest.lock */,
 				8A6DD9642413AEA900D52DC0 /* Sources */,
 				8A6DD9652413AEA900D52DC0 /* Frameworks */,
 				8A6DD9662413AEA900D52DC0 /* Resources */,
+				EF758032F611E06003413B4C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -179,7 +247,6 @@
 			name = GuideTech;
 			packageProductDependencies = (
 				8A6DD9802413B52F00D52DC0 /* LBTATools */,
-				8A5A625024169051007A4A1D /* Alamofire */,
 				8A5A625624192530007A4A1D /* SwiftyJSON */,
 			);
 			productName = GuideTech;
@@ -212,7 +279,6 @@
 			mainGroup = 8A6DD95F2413AEA900D52DC0;
 			packageReferences = (
 				8A6DD97F2413B52F00D52DC0 /* XCRemoteSwiftPackageReference "LBTATools" */,
-				8A5A624F24169051007A4A1D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				8A5A625524192530007A4A1D /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = 8A6DD9692413AEA900D52DC0 /* Products */;
@@ -237,6 +303,7 @@
 				8A69BF042414AC09004E51DF /* image1.jpg in Resources */,
 				8A69BF092414E428004E51DF /* park2.jpg in Resources */,
 				8A6DD9752413AEAE00D52DC0 /* Assets.xcassets in Resources */,
+				8A5596F2241E1973004940F3 /* guidetech-06.png in Resources */,
 				8A69BF022414AC09004E51DF /* image2.jpg in Resources */,
 				8A69BF032414AC09004E51DF /* image3.jpg in Resources */,
 				8A69BF0F2414ED43004E51DF /* restaurant2.jpg in Resources */,
@@ -244,6 +311,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		902410D2688E93327C86DFBD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GuideTech-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF758032F611E06003413B4C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GuideTech/Pods-GuideTech-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GuideTech/Pods-GuideTech-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GuideTech/Pods-GuideTech-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8A6DD9642413AEA900D52DC0 /* Sources */ = {
@@ -253,13 +362,24 @@
 				8A6DD9922413ED5D00D52DC0 /* Header.swift in Sources */,
 				8A69BEFD2414A3E8004E51DF /* Extensions.swift in Sources */,
 				8A6DD98A2413CA1800D52DC0 /* HotelsCell.swift in Sources */,
+				8A559701241F638C004940F3 /* Protocols.swift in Sources */,
+				8A0C3F74241D5120009BAF25 /* TabVC.swift in Sources */,
 				8A6DD96C2413AEA900D52DC0 /* AppDelegate.swift in Sources */,
+				8A55970E241F87D4004940F3 /* HelpCenterVC.swift in Sources */,
+				8A5596F7241E70A1004940F3 /* MapsVC.swift in Sources */,
+				8A5596FF241F5AB3004940F3 /* MenuSliderVC.swift in Sources */,
 				8A6DD98E2413CA4B00D52DC0 /* RestaurantsCell.swift in Sources */,
+				8A55970A241F87B3004940F3 /* VoiceMappingVC.swift in Sources */,
 				8A69BF16241533FB004E51DF /* Model.swift in Sources */,
+				8A55970C241F87BF004940F3 /* SettingsVC.swift in Sources */,
+				8A5596F9241F5A44004940F3 /* ContainerVC.swift in Sources */,
 				8A6DD98C2413CA3300D52DC0 /* TouristSpotsCell.swift in Sources */,
+				8A559705241F6EA6004940F3 /* MenuSliderCell.swift in Sources */,
 				8A6DD9902413CA6A00D52DC0 /* BusStopCell.swift in Sources */,
 				8A6DD9882413C9A200D52DC0 /* HomeVC.swift in Sources */,
 				8A5A62542417E43E007A4A1D /* TrashBinCode.swift in Sources */,
+				8A559707241F798E004940F3 /* MenuOptions.swift in Sources */,
+				8A0C3F70241D3F54009BAF25 /* HomeVCDetails.swift in Sources */,
 				8A6DD96E2413AEA900D52DC0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,6 +455,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Debug;
 		};
@@ -374,6 +495,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -385,6 +507,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -394,6 +517,7 @@
 		};
 		8A6DD97D2413AEAE00D52DC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66DC5FF12404B91E1FDFFFD8 /* Pods-GuideTech.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -403,6 +527,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.valterandremachado.GuideTech;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -412,6 +537,7 @@
 		};
 		8A6DD97E2413AEAE00D52DC0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 651E353752CA3ACB40767F11 /* Pods-GuideTech.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -421,6 +547,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.valterandremachado.GuideTech;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -452,14 +579,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8A5A624F24169051007A4A1D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.2;
-			};
-		};
 		8A5A625524192530007A4A1D /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
@@ -479,11 +598,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8A5A625024169051007A4A1D /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8A5A624F24169051007A4A1D /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
 		8A5A625624192530007A4A1D /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8A5A625524192530007A4A1D /* XCRemoteSwiftPackageReference "SwiftyJSON" */;

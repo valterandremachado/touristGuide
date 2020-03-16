@@ -8,10 +8,14 @@
 
 import UIKit
 import LBTATools
+import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
 class RestaurantsCell: UICollectionViewCell {
     private let cellID = "cellId"
-    
+    var restaurantData: [RestaurantModel] = []
+
     var images: [String]? {
         didSet{
             collectionView.reloadData()
@@ -56,6 +60,7 @@ class RestaurantsCell: UICollectionViewCell {
         super.init(frame: .zero)
         setupView()
         //             contentView.backgroundColor = .blue
+        fetchJSONData()
     }
     
     fileprivate func setupView(){
@@ -71,38 +76,71 @@ class RestaurantsCell: UICollectionViewCell {
 
 extension RestaurantsCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    func fetchJSONData(){
+        
+        let headers = [
+            // API Key (required)
+            "Authorization": "Bearer wQKtA45T2f-q8QSMNFqLWS742ZbSig_f7FyMO63Pg9SMwLa7SocGyC1fpqnfI0hnaLjUKB5JPNFKwzXLClt7EXm5p1haIxFrjBQ79CMxGvFB9QqpFzkdvwAxHdxsXnYx"
+        ]
+        
+        let url = "https://api.yelp.com/v3/businesses/search?location=baguiocity&term=restaurants"
+        
+        DispatchQueue.main.async {
+            
+            Alamofire.request(url, method: .get, headers: headers)
+                .responseJSON { response in
+                    
+                    switch response.result {
+                    case .success(let value):
+                        let json = JSON(value)
+                        json["businesses"].array?.forEach({ (restaurant) in
+                            let spotsLocationNested = restaurant["location"]["address1"]
+                            
+                            let restaurantLat = restaurant["coordinates"]["latitude"]
+                            let restaurantLong = restaurant["coordinates"]["longitude"]
+                            
+                            //                        print(nested)
+                            let restaurantDetails = RestaurantModel(name: restaurant["name"].stringValue, location: spotsLocationNested.stringValue, rating: restaurant["rating"].double, image_url: restaurant["image_url"].stringValue, phone: restaurant["phone"].stringValue, latitude: restaurantLat.float, longitude: restaurantLong.float)
+                            
+                            self.restaurantData.append(restaurantDetails)
+                            //                        print(hotels)
+                        })
+                        self.collectionView.reloadData()
+                        
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
+        }
+        
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images!.count
+        return restaurantData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! RestaurantIconsCell
         
-        if let imageName = images?[indexPath.item]{
-            cell.coverImageView.image = UIImage(named: imageName)
-        }
+        cell.name.text = self.restaurantData[indexPath.item].name?.maxLength(length: 15)
         
-        if let names = names?[indexPath.item]{
-            cell.name.text = names
+        if let imageUrl = self.restaurantData[indexPath.item].image_url{
+            Alamofire.request(imageUrl).responseImage { (response) in
+                if let image = response.result.value {
+                    cell.coverImageView.image = image
+                }
+            }
         }
-        
-        if let description = descriptions?[indexPath.item]{
-            cell.placeDescription.text = description
-        }
-        
-        if let reviews = reviews?[indexPath.item]{
-            cell.review.text = reviews
-        }
-        
-        if let addresses = addresses?[indexPath.item]{
-            cell.address.text = addresses
-        }
+        cell.rating.text = "\(self.restaurantData[indexPath.item].rating ?? 0) ★"
+        cell.address.text = self.restaurantData[indexPath.item].location?.maxLength(length: 18)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 135, height: frame.height - 60)
+        return CGSize(width: 125, height: frame.height - 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -110,6 +148,27 @@ extension RestaurantsCell: UICollectionViewDelegateFlowLayout, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let homeVCDetails = HomeVCDetails()
+        
+        //        homeVCDetails.hotelName.text = "Hotels:\(indexPath.item)"
+        if let imageUrl = restaurantData[indexPath.item].image_url{
+            Alamofire.request(imageUrl).responseImage { (response) in
+                if let image = response.result.value {
+                    homeVCDetails.imageView.image = image
+                }
+            }
+        }
+        
+        homeVCDetails.name.text = restaurantData[indexPath.item].name
+        homeVCDetails.address.text = restaurantData[indexPath.item].location
+        homeVCDetails.phone.text = restaurantData[indexPath.item].phone
+        homeVCDetails.review.text = "\(restaurantData[indexPath.item].rating ?? 0) ★"
+        
+        homeVCDetails.latitude.text = "\(restaurantData[indexPath.item].latitude ?? 0)"
+        homeVCDetails.longitude.text = "\(restaurantData[indexPath.item].longitude ?? 0)"
+
+        let navigationController = UINavigationController(rootViewController: homeVCDetails)
+        self.window?.rootViewController?.present(navigationController, animated: true, completion: nil)
         print("Restaurants:\(indexPath.item)")
     }
 }
@@ -132,6 +191,13 @@ class RestaurantIconsCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
 //        lbl.backgroundColor = .blue
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.numberOfLines = 0 // 0 = as many lines as the label needs
+        lbl.frame.origin.x = 32
+        lbl.frame.origin.y = 32
+        lbl.frame.size.width = self.bounds.width - 64
+        lbl.font = UIFont.boldSystemFont(ofSize: 13) // my UIFont extension
+        lbl.sizeToFit()
         
         return lbl
     }()
@@ -140,7 +206,14 @@ class RestaurantIconsCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
 //        lbl.backgroundColor = .purple
-        lbl.textColor = .lightGray
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.numberOfLines = 0 // 0 = as many lines as the label needs
+        lbl.frame.origin.x = 32
+        lbl.frame.origin.y = 32
+        lbl.frame.size.width = self.bounds.width - 64
+        lbl.font = UIFont.boldSystemFont(ofSize: 13) // my UIFont extension
+        lbl.textColor = UIColor.lightGray
+        lbl.sizeToFit()
         
         return lbl
     }()
@@ -160,14 +233,16 @@ class RestaurantIconsCell: UICollectionViewCell {
         return lbl
     }()
     // stars (convert it from string to int)
-    lazy var review: UILabel = {
+    lazy var rating: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.textColor = .rgb(red: 101, green: 183, blue: 180)
+
         return lbl
     }()
     
     lazy var stackView1: UIStackView = {
-        var sv = UIStackView(arrangedSubviews: [name, address, review])
+        var sv = UIStackView(arrangedSubviews: [name, address])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
         sv.spacing = 0

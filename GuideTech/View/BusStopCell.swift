@@ -9,6 +9,11 @@
 import UIKit
 import LBTATools
 
+
+protocol CellSubclassDelegate: class {
+    func buttonTapped(cell: BusStopCell)
+}
+
 class BusStopCell: UICollectionViewCell {
     
 
@@ -41,12 +46,14 @@ class BusStopCell: UICollectionViewCell {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "location"), for: .normal)
         btn.setTitle("Get Directions", for: .normal)
+        btn.tintColor = .rgb(red: 101, green: 183, blue: 180)
+//        btn.addTarget(self, action: #selector(getDirectionPressed), for: .touchUpInside)
         btn.alignTextBelow()
         return btn
     }()
     
     lazy var stackView2: UIStackView = {
-        var sv = UIStackView(arrangedSubviews: [name, address, review])
+        var sv = UIStackView(arrangedSubviews: [name, address])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
         sv.spacing = 0
@@ -68,9 +75,11 @@ class BusStopCell: UICollectionViewCell {
         
         return sv
     }()
-    
+    weak var delegate: CellSubclassDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
+
         setupView()
 //        contentView.backgroundColor = .purple
         //        contentView.backgroundColor = .red
@@ -86,6 +95,13 @@ class BusStopCell: UICollectionViewCell {
         self.layer.masksToBounds = false
     }
     
+    @objc fileprivate func getDirectionPressed(sender: UIButton){
+//        self.delegate!.buttonTapped(cell: self)
+        
+    }
+    
+    // 1: 16.406084, 120.602619
+    // 2: 16.410375, 120.598629
     private func setupView(){
         [stackView1].forEach({contentView.addSubview($0)})
         

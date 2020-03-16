@@ -8,36 +8,15 @@
 
 import UIKit
 import LBTATools
+import SwiftyJSON
+import Alamofire
+import AlamofireImage
 
 class TouristSpotsCell: UICollectionViewCell {
 
     private let cellID = "cellId"
     
-    var images: [String]? {
-        didSet{
-           collectionView.reloadData()
-        }
-    }
-    var names: [String]? {
-        didSet{
-           collectionView.reloadData()
-        }
-    }
-    var addresses: [String]? {
-        didSet{
-           collectionView.reloadData()
-        }
-    }
-    var descriptions: [String]? {
-        didSet{
-           collectionView.reloadData()
-        }
-    }
-    var reviews: [String]? {
-        didSet{
-           collectionView.reloadData()
-        }
-    }
+    var touristSpotData: [TouristSpotModel] = []
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -57,6 +36,7 @@ class TouristSpotsCell: UICollectionViewCell {
         super.init(frame: .zero)
             setupView()
 //        contentView.backgroundColor = .blue
+        fetchJSONData()
     }
         
     fileprivate func setupView(){
@@ -71,38 +51,74 @@ class TouristSpotsCell: UICollectionViewCell {
 }
 
 extension TouristSpotsCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    
+    func fetchJSONData(){
+        
+        let headers = [
+            // API Key (required)
+            "Authorization": "Bearer wQKtA45T2f-q8QSMNFqLWS742ZbSig_f7FyMO63Pg9SMwLa7SocGyC1fpqnfI0hnaLjUKB5JPNFKwzXLClt7EXm5p1haIxFrjBQ79CMxGvFB9QqpFzkdvwAxHdxsXnYx"
+        ]
+        
+        let url = "https://api.yelp.com/v3/businesses/search?location=baguiocity&term=tours"
+        
+        DispatchQueue.main.async {
+            
+            Alamofire.request(url, method: .get, headers: headers)
+                .responseJSON { response in
+                    
+                    switch response.result {
+                    case .success(let value):
+                        let json = JSON(value)
+                        json["businesses"].array?.forEach({ (spots) in
+                            let spotsLocationNested = spots["location"]["address1"]
+                            
+                            let spotLat = spots["coordinates"]["latitude"]
+                            let spotLong = spots["coordinates"]["longitude"]
+                            
+                            //                        print(nested)
+                            let spotsDetails = TouristSpotModel(name: spots["name"].stringValue, location: spotsLocationNested.stringValue, rating: spots["rating"].double, image_url: spots["image_url"].stringValue, latitude: spotLat.float, longitude: spotLong.float)
+                            
+                            self.touristSpotData.append(spotsDetails)
+                            //                        print(hotels)
+                        })
+                        self.collectionView.reloadData()
+                        
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
+        }
+        
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images!.count
+        return touristSpotData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! TouristSpotIconsCell
+       
+        cell.name.text = self.touristSpotData[indexPath.item].name?.maxLength(length: 15)
         
-        if let imageName = images?[indexPath.item]{
-            cell.coverImageView.image = UIImage(named: imageName)
+        if let imageUrl = self.touristSpotData[indexPath.item].image_url{
+            Alamofire.request(imageUrl).responseImage { (response) in
+                if let image = response.result.value {
+                    cell.coverImageView.image = image
+                }
+            }
         }
-        
-        if let names = names?[indexPath.item]{
-            cell.name.text = names
-        }
-        
-        if let description = descriptions?[indexPath.item]{
-            cell.placeDescription.text = description
-        }
-        
-        if let reviews = reviews?[indexPath.item]{
-            cell.review.text = reviews
-        }
-        
-        if let addresses = addresses?[indexPath.item]{
-            cell.address.text = addresses
-        }
+        cell.rating.text = "\(self.touristSpotData[indexPath.item].rating ?? 0) ★"
+        cell.address.text = self.touristSpotData[indexPath.item].location?.maxLength(length: 15)
+//        cell.pricePerNight.text = self.touristSpotData[indexPath.item].price
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 135, height: frame.height - 60)
+        return CGSize(width: 125, height: frame.height - 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -110,6 +126,27 @@ extension TouristSpotsCell: UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let homeVCDetails = HomeVCDetails()
+        
+        //        homeVCDetails.hotelName.text = "Hotels:\(indexPath.item)"
+        if let imageUrl = touristSpotData[indexPath.item].image_url{
+            Alamofire.request(imageUrl).responseImage { (response) in
+                if let image = response.result.value {
+                    homeVCDetails.imageView.image = image
+                }
+            }
+        }
+        
+        homeVCDetails.name.text = touristSpotData[indexPath.item].name
+        homeVCDetails.address.text = touristSpotData[indexPath.item].location
+//        homeVCDetails.hotelPhone.text = touristSpotData[indexPath.item].phone
+        homeVCDetails.review.text = "\(touristSpotData[indexPath.item].rating ?? 0) ★"
+        
+        homeVCDetails.latitude.text = "\(touristSpotData[indexPath.item].latitude ?? 0)"
+        homeVCDetails.longitude.text = "\(touristSpotData[indexPath.item].longitude ?? 0)"
+        
+        let navigationController = UINavigationController(rootViewController: homeVCDetails)
+        self.window?.rootViewController?.present(navigationController, animated: true, completion: nil)
         print("Tourist: \(indexPath.item)")
     }
 }
@@ -133,7 +170,13 @@ class TouristSpotIconsCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
 //        lbl.backgroundColor = .blue
-
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.numberOfLines = 0 // 0 = as many lines as the label needs
+        lbl.frame.origin.x = 32
+        lbl.frame.origin.y = 32
+        lbl.frame.size.width = self.bounds.width - 64
+        lbl.font = UIFont.boldSystemFont(ofSize: 13) // my UIFont extension
+        lbl.sizeToFit()
         return lbl
     }()
     // address
@@ -142,6 +185,14 @@ class TouristSpotIconsCell: UICollectionViewCell {
         lbl.translatesAutoresizingMaskIntoConstraints = false
 //        lbl.backgroundColor = .purple
         lbl.textColor = .lightGray
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.numberOfLines = 0 // 0 = as many lines as the label needs
+        lbl.frame.origin.x = 32
+        lbl.frame.origin.y = 32
+        lbl.frame.size.width = self.bounds.width - 64
+        lbl.font = UIFont.boldSystemFont(ofSize: 13) // my UIFont extension
+        lbl.sizeToFit()
+        lbl.text = "Baguio City"
         return lbl
     }()
     // place info
@@ -160,16 +211,17 @@ class TouristSpotIconsCell: UICollectionViewCell {
         return lbl
     }()
     // stars (convert it from string to int)
-    lazy var review: UILabel = {
+    lazy var rating: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
 //        lbl.backgroundColor = .yellow
+        lbl.textColor = .rgb(red: 101, green: 183, blue: 180)
 
         return lbl
     }()
     
     lazy var stackView1: UIStackView = {
-        var sv = UIStackView(arrangedSubviews: [name, address, review])
+        var sv = UIStackView(arrangedSubviews: [name, address])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
         sv.spacing = 0
@@ -213,7 +265,7 @@ class TouristSpotIconsCell: UICollectionViewCell {
         
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 15
-        
+
         stackView2.anchor(top: self.topAnchor, leading: self.leadingAnchor, bottom: nil, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), size: CGSize(width: 0, height: 105))
         
         stackView1.anchor(top: stackView2.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding:  UIEdgeInsets(top: 10, left: 10, bottom: 15, right: 10))

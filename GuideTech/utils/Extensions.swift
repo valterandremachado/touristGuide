@@ -8,6 +8,41 @@
 
 import UIKit
 
+public extension UICollectionView {
+
+  /**
+  This method returns the indexPath of the cell that contains the specified view (e.g. Button, TextView)
+
+   - Parameter view: The view to find.
+
+   - Returns: The indexPath of the cell containing the view, or nil if it can't be found
+
+  */
+
+    func indexPathForView(_ view: UIView) -> IndexPath? {
+        let center = view.center
+        let viewCenter = self.convert(center, from: view.superview)
+        let indexPath = self.indexPathForItem(at: viewCenter)
+        return indexPath
+    }
+}
+
+
+extension String {
+   func maxLength(length: Int) -> String {
+       var str = self
+       let nsString = str as NSString
+       if nsString.length >= length {
+           str = nsString.substring(with:
+               NSRange(
+                location: 0,
+                length: nsString.length > length ? length : nsString.length)
+           )
+       }
+       return  str
+   }
+}
+
 extension UIButton {
     func alignTextBelow(spacing: CGFloat = 6.0) {
         guard let image = self.imageView?.image else {

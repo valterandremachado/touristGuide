@@ -21,8 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = HomeVC()
+        window?.rootViewController = VoiceMappingVC()
         window?.makeKeyAndVisible()
+        
+//        let navigationController = UINavigationController()
+//        navigationController.pushViewController(HomeVC(), animated: true)
+//        window?.rootViewController = navigationController
+//        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

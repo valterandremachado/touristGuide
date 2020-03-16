@@ -8,6 +8,7 @@
 import UIKit
 import LBTATools
 import Alamofire
+//import ShimmerSwift
 
 let hotelsCellID = "hotelsCell"
 let touristSpotsCellID = "touristSpotsCell"
@@ -17,33 +18,14 @@ let headerID = "header"
 
 class HomeVC: UIViewController, UISearchBarDelegate {
     
+    var delegate: homeVCDelegate?
+    
     let colorArray = [UIColor.blue, UIColor.green, UIColor.blue, UIColor.gray, UIColor.yellow]
-    // hotel arrays
-    let imageArray = ["image1.jpg", "image2.jpg", "image3.jpg"]
-//    let nameArray = ["Venis", "CityLights", "Porta Vaga", "m"]
-    var nameArray = [String: AnyObject]()
-    let addressArray = ["Address", "Address", "Address"]
-    let priceArray = ["$100", "$100", "$100"]
-    let reviewArray = ["5 ★", "5 ★", "5 ★"]
-    
-    // tourist Spot arrays
-    let imageArray2 = ["park1.jpg", "park2.jpg", "park3.jpg"]
-    let nameArray2 = ["Burnham Park", "Session Road", "The Mansion"]
-    let descriptionArray = ["is a historic urban park located in downtown Baguio.", "The road forms part of the National Route 231 of the Philippine highway network.", "The mansion is located in the summer capital of the country."]
-    let reviewArray2 = ["5 ★", "5 ★", "5 ★"]
-    let addressArray2 = ["Address", "Address", "Address"]
-    
-    // restaurant arrays
-    let imageArray3 = ["restaurant1.jpg", "restaurant2.jpg", "restaurant3.jpg"]
-    let nameArray3 = ["Craft 1945", "Le Chef", "Secret Garden"]
-    let descriptionArray2 = ["is a historic urban park located in downtown Baguio.", "The road forms part of the National Route 231 of the Philippine highway network.", "The mansion is located in the summer capital of the country."]
-    let reviewArray3 = ["5 ★", "5 ★", "5 ★"]
-    let addressArray3 = ["Address", "Address", "Address"]
     
     // bus stop arrays
-    let nameArray4 = ["Victory Liner Bus Terminal", "Genesis Bus Terminal", "Victory Liner"]
-    let reviewArray4 = ["5 ★", "5 ★", "5 ★"]
-    let addressArray4 = ["Address", "Address", "Address"]
+    let nameArray4 = ["Victory Liner Bus Terminal", "Gov. Pack Road Bus Terminal"]
+//    let reviewArray4 = ["5 ★", "5 ★", "5 ★"]
+    let addressArray4 = ["Utility Rd", "Gov. Pack Road"]
     
     var filteredArray = [String]()
     var isSearching = false
@@ -56,13 +38,13 @@ class HomeVC: UIViewController, UISearchBarDelegate {
         sb.layer.shadowOpacity = 1.0
         sb.layer.shadowOffset = CGSize(width: 10, height: 10)
         sb.layer.masksToBounds = false
-//        sb.clipsToBounds = false
+        //        sb.clipsToBounds = false
         sb.backgroundImage = UIImage()
         sb.placeholder = "Search"
         
         sb.returnKeyType = UIReturnKeyType.done
         sb.delegate = self
-
+        
         return sb
     }()
     
@@ -70,7 +52,7 @@ class HomeVC: UIViewController, UISearchBarDelegate {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-//        layout.minimumInteritemSpacing = 5
+        //        layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 16
         layout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -85,73 +67,107 @@ class HomeVC: UIViewController, UISearchBarDelegate {
         cv.register(Header.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerID)
         return cv
     }()
-    typealias WebResponse = ([String: Any]?, Error?)-> Void
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-//        navigationController?.title = "HomeVC"
-//        navigationController?.navigationBar.prefersLargeTitles = true
+        
         
         view.backgroundColor = .white
         setView()
-//        fetchJSONData()
+        //        fetchJSONData()
     }
-
+    
+    
     fileprivate func setView(){
-        [collectionView, mainSearchBar].forEach({view.addSubview($0)})
+        [collectionView].forEach({view.addSubview($0)})
+//        let profileImage = UIImage.init(named: "image1.jpg")
         
-        mainSearchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
-        collectionView.anchor(top: mainSearchBar.bottomAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
-//        searchBars = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 0))
+//        let profileBtn = UIButton(type: .custom)
+////        profileBtn.imageView?.contentMode = .scaleAspectFill
+////        profileBtn.setImage(profileImage, for: .normal)
+//        profileBtn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//        profileBtn.layer.cornerRadius = profileBtn.frame.size.height/2
+//        profileBtn.layer.masksToBounds = false
+//        profileBtn.clipsToBounds = true
+//        profileBtn.backgroundColor = .red
+//        //        profileBtn.layer.borderWidth = 1.5
+//        profileBtn.sizeToFit()
+//        let widthConstraint = profileBtn.widthAnchor.constraint(equalToConstant: 30)
+//        let heightConstraint = profileBtn.heightAnchor.constraint(equalToConstant: 30)
+//        heightConstraint.isActive = true
+//        widthConstraint.isActive = true
+//
+//        let profileItem = UIBarButtonItem(customView: profileBtn)
+//        navigationItem.leftBarButtonItem =  profileItem
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(menuSlidePressed))
+        navigationItem.leftBarButtonItem?.tintColor = .rgb(red: 101, green: 183, blue: 180)
+        navigationItem.title = "GuideTech"
+//        mainSearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 0))
+//        self.navigationItem.titleView = mainSearchBar
+//        mainSearchBar.placeholder = "Search places in baguio..."
+        
+        //        mainSearchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
+        collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0))
+        //        searchBars = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 0))
     }
-
+    
+    @objc fileprivate func menuSlidePressed(){
+        delegate?.handleMenuToggle(forMenuOption: nil)
+    }
+    
+   
+    
 }
 
 
 extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     
-//    func fetchJSONData(){
-//
-//        //        let header = [
-//        //            "cityName": "Baguio",
-//        //            "countryCode": "PH",
-//        //            "countryName": "Philippines",
-//        //        ]
-//        //
-//        //        let parameters: Parameters = [
-//        //            //            "id": "424023"
-//        //            "countryName": "Philippines"
-//        //        ]
-//        //
-//        // MARK: API ongoing
-//        let url = "http://engine.hotellook.com/api/v2/lookup.json?query=baguiocity&lang=ph&lookFor=both&limit=1&token=PasteYourTokenHere"
-//
-//
-//        Alamofire.request(url, method: .get)
-//            .responseJSON { (response) in
-//                //                debugPrint(response)
-//                if let responseValue = response.result.value as! [String: Any]?{
-//                    //                    print(responseValue)
-//                    if let responseHotels = responseValue["results"] as! [String:Any]?{
-////                        self.nameArray = responseHotels
-////                        print(responseHotels)
-//                    }
-//                }
-//        }
-//
-//    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if mainSearchBar.text == nil || mainSearchBar.text == ""{
-//            isSearching = false
-//            view.endEditing(true)
-//            collectionView.reloadData()
-//        }else{
-//            isSearching = true
-//            filteredArray = nameArray.filter({$0.range(of: mainSearchBar.text!, options: .caseInsensitive) != nil })
-//            collectionView.reloadData()
-//        }
+        //        if mainSearchBar.text == nil || mainSearchBar.text == ""{
+        //            isSearching = false
+        //            view.endEditing(true)
+        //            collectionView.reloadData()
+        //        }else{
+        //            isSearching = true
+        //            filteredArray = nameArray.filter({$0.range(of: mainSearchBar.text!, options: .caseInsensitive) != nil })
+        //            collectionView.reloadData()
+        //        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind:
+        String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:
+            headerID, for: indexPath) as! Header
+        //        header.backgroundColor = .yellow
+        //        header.seeAllBtn.addTarget(self, action: #selector(seeAllBtnPressed), for: .touchUpInside)
+        switch indexPath.section {
+        case 0:
+            header.sectionTitle.text = "Hotels"
+            header.seeAllBtn.isHidden = false
+            return header
+        case 1:
+            header.sectionTitle.text = "Tourist Spots"
+            return header
+        case 2:
+            header.sectionTitle.text = "Restaurants"
+            return header
+        case 3:
+            header.sectionTitle.text = "Bus Stop"
+            header.seeAllBtn.isHidden = true
+            return header
+        default:
+            header.seeAllBtn.isHidden = false
+            break
+        }
+        return header
+    }
+    
+    @objc func seeAllBtnPressed(){
+        //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: hotelsCellID, for: indexPath) as! HotelsCell
+        //        collectionView.numberOfItems(inSection: cell.names.count)
+        print("123")
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -161,9 +177,9 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         
         if section <= 2
         {
-//            if isSearching {
-//                return filteredArray.count
-//            }
+            //            if isSearching {
+            //                return filteredArray.count
+            //            }
             return 1
         }
         //        else
@@ -174,107 +190,81 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //        var device: String?
-        //
-        //        if isSearching {
-        //            device = filteredArray[indexPath.row]
-        //        }else{
-        //            device = nameArray[indexPath.row]
-        //        }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: hotelsCellID, for: indexPath) as! HotelsCell
         
         switch indexPath.section {
         case 0:
-            // hotels cell
-            //             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: hotelsCellID, for: indexPath) as! HotelsCell
-            //             cell.iconCell.coverImageView.backgroundColor = .blue
-            cell.names = [nameArray]
-            
-            cell.images = imageArray
-            cell.addresses = addressArray
-            cell.prices = priceArray
-            cell.reviews = reviewArray
-            //             cell.textlabel.text = device
+           
             return cell
         case 1:
             // tourist spots cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: touristSpotsCellID, for: indexPath) as! TouristSpotsCell
-            
-            cell.images = imageArray2
-            cell.names = nameArray2
-            //            cell.descriptions = descriptionArray
-            cell.reviews = reviewArray2
-            cell.addresses = addressArray2
-            
+           
             return cell
         case 2:
             // restaurants cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: restaurantsCellID, for: indexPath) as! RestaurantsCell
-            
-            cell.images = imageArray3
-            cell.names = nameArray3
-            //            cell.descriptions = descriptionArray
-            cell.reviews = reviewArray3
-            cell.addresses = addressArray3
-            
+          
             return cell
         case 3:
             // bus stop cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: busStopCellID, for: indexPath) as! BusStopCell
             
             cell.name.text = nameArray4[indexPath.item]
-            cell.review.text = reviewArray4[indexPath.item]
             cell.address.text = addressArray4[indexPath.item]
             
+            cell.getLocationBtn.addTarget(self, action: #selector(getDirectionPressed), for: .touchUpInside)
             return cell
         default:
             break
         }
         return cell
     }
+    @objc func getDirectionPressed(sender: UIButton) {
+        
+        let mapVC = MapsVC()
+        if let indexPath = self.collectionView.indexPathForView(sender) {
+            print("Button tapped at indexPath \(indexPath)")
+            switch indexPath.item {
+            case 0:
+                mapVC.location = "16.406084, 120.602619"
+                mapVC.navigationItem.title = nameArray4[0]
+                navigationController?.pushViewController(mapVC, animated: true)
+//                present(mapVC, animated: true)
+            case 1:
+                mapVC.location = "16.410375, 120.598629"
+                mapVC.navigationItem.title = nameArray4[1]
+                navigationController?.pushViewController(mapVC, animated: true)
+//                present(mapVC, animated: true)
+            default:
+                break
+            }
+        }
+        else {
+            print("Button indexPath not found")
+        }
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section <= 2
         {
             return CGSize(width: view.frame.width, height: 250)
         }
-        return CGSize(width: view.frame.width - 19, height: 80)
+        return CGSize(width: view.frame.width - 19, height: 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if section <= 2
         {
-            return UIEdgeInsets(top: -10, left: 0, bottom: 8, right: 0)
+            return UIEdgeInsets(top: 5, left: 0, bottom: 8, right: 0)
         }
         return UIEdgeInsets(top: 20, left: 8, bottom: 8, right: 8)
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind:
-        String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:
-            headerID, for: indexPath) as! Header
-        //        header.backgroundColor = .yellow
-        
-        switch indexPath.section {
-        case 0:
-            header.sectionTitle.text = "Hotels"
-            return header
-        case 1:
-            header.sectionTitle.text = "Tourist Spots"
-            return header
-        case 2:
-            header.sectionTitle.text = "Restaurants"
-            return header
-        case 3:
-            header.sectionTitle.text = "Bus Stop"
-            return header
-        default:
-            break
-        }
-        return header
-    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 20)
     }

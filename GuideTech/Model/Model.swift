@@ -8,34 +8,39 @@
 
 import UIKit
 
-struct Hotel: Decodable {
-    let id: Int
-    let name: String
-    let imageUrl: String
-    let address: String
-    let price: Int
-    let rate: Int
+
+struct HotelsModel {
+    var name: String?
+    var location: String?
+    var rating: Double?
+    var image_url: String?
+    var price: String?
+    var phone: String?
+    var latitude: Float?
+    var longitude: Float?
 }
 
-struct TouristSpot: Decodable {
-    let id: Int
-    let name: String
-    let imageUrl: String
-    let address: String
-    let rate: Int
+struct TouristSpotModel {
+    var name: String?
+    var location: String?
+    var rating: Double?
+    var image_url: String?
+    var latitude: Float?
+    var longitude: Float?
 }
 
-struct Restaurant: Decodable {
-    let id: Int
-    let name: String
-    let imageUrl: String
-    let address: String
-    let rate: Int
+struct RestaurantModel {
+    var name: String?
+    var location: String?
+    var rating: Double?
+    var image_url: String?
+    var phone: String?
+    var coordinates: Float?
+    var latitude: Float?
+    var longitude: Float?
 }
 
-struct BusStop: Decodable {
-    let id: Int
-    let name: String
-    let address: String
-    let rate: Int
+struct BusStopModel {
+    var name: String?
+    var location: String?
 }
