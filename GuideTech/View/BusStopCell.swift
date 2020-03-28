@@ -44,8 +44,15 @@ class BusStopCell: UICollectionViewCell {
     lazy var getLocationBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setImage(UIImage(systemName: "location"), for: .normal)
-        btn.setTitle("Get Directions", for: .normal)
+        
+        if preferredLanguage == "ar" {
+            btn.setImage(UIImage(systemName: "location"), for: .normal)
+            btn.setTitle("Get Directions".localized("ar"), for: .normal)
+        } else {
+            btn.setImage(UIImage(systemName: "location"), for: .normal)
+            btn.setTitle("Get Directions", for: .normal)
+        }
+        
         btn.tintColor = .rgb(red: 101, green: 183, blue: 180)
 //        btn.addTarget(self, action: #selector(getDirectionPressed), for: .touchUpInside)
         btn.alignTextBelow()

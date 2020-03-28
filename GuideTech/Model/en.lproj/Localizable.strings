@@ -1,0 +1,64 @@
+/* 
+  Localizable.strings
+  GuideTech
+
+  Created by Valter A. Machado on 3/22/20.
+  Copyright © 2020 Valter A. Machado. All rights reserved.
+*/
+// Some Comment
+"Appearance" = "Appearance";
+// Some Comment
+"Language" = "Language";
+// Some Comment
+"Settings" = "Settings";
+// Some Comment
+"Back" = "Back";
+// Some Comment
+"Get Directions" = "Get Directions";
+// Some Comment
+"Voice mapping" = "Voice mapping";
+// Some Comment
+"Help center" = "Help center";
+// Some Comment
+"Phone" = "Phone";
+// Some Comment
+"Reviews" = "Reviews";
+// Some Comment
+"Automatic" = "Automatic";
+// Some Comment
+"English" = "English";
+// Some Comment
+"Arabic" = "Arabic";
+// Some Comment
+"Dark" = "Dark";
+// Some Comment
+"Light" = "Light";
+
+// Some Comment
+"Signup" = "Signup";
+// Some Comment
+"Login" = "Login";
+// Some Comment
+"Forgot password?" = "Forgot password?";
+// Some Comment
+"Logout" = "Logout";
+// Some Comment
+"user name" = "user name";
+// Some Comment
+"Email" = "Email";
+// Some Comment
+"Password" = "Password";
+// Some Comment
+"Confirm password" = "Confirm password";
+
+// Some Comment
+"Hotels" = "Hotels";
+// Some Comment
+"Tourist spots" = "Tourist spots";
+// Some Comment
+"Restaurants" = "Restaurants";
+// Some Comment
+"Bus stop" = "Bus stop";
+// Some Comment
+"Maps" = "Maps";
+

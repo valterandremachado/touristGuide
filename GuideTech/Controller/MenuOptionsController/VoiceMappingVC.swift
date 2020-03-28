@@ -15,7 +15,8 @@ import Speech
 //import AVKit
 
 class VoiceMappingVC: UIViewController {
-    
+    var timer : Timer?
+
     // MARK: Speech Recognition Setup
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -23,7 +24,9 @@ class VoiceMappingVC: UIViewController {
     private let audioEngine = AVAudioEngine()
     
     // MARK: - Properties
-    var location = ""
+    var locationDic: [String: Any] = ["Session road": "Session road", "Burnham Park": "Burnham Park", "Mines View Park": "Mines View Park"]
+    var userInputLoc = ["Session road": "Session road"]
+    var location = UILabel()
     
     lazy var mapView: MKMapView = {
         let mp = MKMapView()
@@ -41,14 +44,19 @@ class VoiceMappingVC: UIViewController {
         let lbl = UILabel()
         lbl.textColor = .darkGray
         lbl.font = .boldSystemFont(ofSize: 18)
-        lbl.text = "Dummy text"
         return lbl
     }()
     
     lazy var startTourBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setTitle("Record", for: .normal)
+        
+        if preferredLanguage == "ar" {
+          btn.setTitle("Record".localized("ar"), for: .normal)
+        } else {
+            btn.setTitle("Record", for: .normal)
+        }
+        
         btn.titleLabel?.font = .boldSystemFont(ofSize: 20)
         btn.tintColor = .rgb(red: 101, green: 183, blue: 180)
         btn.addTarget(self, action: #selector(startTourBtnPressed), for: .touchUpInside)
@@ -80,12 +88,14 @@ class VoiceMappingVC: UIViewController {
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .rgb(red: 245, green: 245, blue: 245)
+        
         setupLocationManager()
         setupView()
-        getDirectionsFunc(location: location)
+//        getDirectionsFunc(location: location)
         print("location: \(location)")
         startTourBtn.isEnabled = false
+//        restartSpeechTimer()
     }
     
     override public func viewDidAppear(_ animated: Bool) {
@@ -98,26 +108,46 @@ class VoiceMappingVC: UIViewController {
     }
     
     @objc fileprivate func startTourBtnPressed(){
-        print("123")
         
-        if audioEngine.isRunning {
-            audioEngine.stop()
-            recognitionRequest?.endAudio()
-            startTourBtn.isEnabled = false
-            startTourBtn.setTitle("Stopping...", for: .disabled)
-        } else {
-            try! startRecording()
-            startTourBtn.setTitle("Stop", for: [])
-            startTourBtn.tintColor = .red
+        DispatchQueue.main.async {
+            
+            if self.audioEngine.isRunning {
+                self.audioEngine.stop()
+                self.recognitionRequest?.endAudio()
+                self.startTourBtn.isEnabled = false
+                
+                if preferredLanguage == "ar" {
+                    self.startTourBtn.setTitle("Stopping...".localized("ar"), for: .disabled)
+                } else {
+                    self.startTourBtn.setTitle("Stopping...", for: .disabled)
+                }
+                
+            } else {
+                try! self.startRecording()
+                
+                if preferredLanguage == "ar" {
+                    self.startTourBtn.setTitle("Stop".localized("ar"), for: [])
+                } else {
+                    self.startTourBtn.setTitle("Stop", for: [])
+                }
+                
+                self.startTourBtn.tintColor = .red
+            }
         }
-        
     }
     
     func setupView(){
         [stackView].forEach({view.addSubview($0)})
         let cancelBtnItem = UIBarButtonItem(customView: cancelBtn)
         navigationItem.leftBarButtonItem =  cancelBtnItem
-        navigationItem.title = "Voice Mapping"
+        
+        if preferredLanguage == "ar" {
+            navigationItem.title = "Voice Mapping".localized("ar")
+            placeLbl.text = "Tap record to start".localized("ar")
+        } else {
+            navigationItem.title = "Voice Mapping"
+            placeLbl.text = "Tap record to start"
+        }
         //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         //        navigationController?.navigationBar.hideNavBarSeperator()
         mapView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: CGSize(width: 0, height: view.frame.height/1.3))
@@ -143,33 +173,36 @@ extension VoiceMappingVC: SFSpeechRecognizerDelegate {
     fileprivate func setupSpeechRecogn(){
         speechRecognizer.delegate = self
         
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            /*
-             The callback may not be called on the main thread. Add an
-             operation to the main queue to update the record button's state.
-             */
-            OperationQueue.main.addOperation {
-                switch authStatus {
-                case .authorized:
-                    self.startTourBtn.isEnabled = true
-                    
-                case .denied:
-                    self.startTourBtn.isEnabled = false
-                    self.startTourBtn.setTitle("User denied access to speech recognition", for: .disabled)
-                    
-                case .restricted:
-                    self.startTourBtn.isEnabled = false
-                    self.startTourBtn.setTitle("Speech recognition restricted on this device", for: .disabled)
-                    
-                case .notDetermined:
-                    self.startTourBtn.isEnabled = false
-                    self.startTourBtn.setTitle("Speech recognition not yet authorized", for: .disabled)
-                }
+        SFSpeechRecognizer.requestAuthorization {
+            status in
+            var buttonState = false
+            switch status {
+            case .authorized:
+                buttonState = true
+                print("Permission received")
+            case .denied:
+                buttonState = false
+                print("User did not give permission to use speech recognition")
+            case .notDetermined:
+                buttonState = false
+                print("Speech recognition not allowed by user")
+            case .restricted:
+                buttonState = false
+                print("Speech recognition not supported on this device")
+            @unknown default:
+                fatalError("fatal error")
+            }
+            /// Disable the button if user did not grant permission
+            DispatchQueue.main.async {
+                self.startTourBtn.isEnabled = buttonState
             }
         }
+        
+         
     }
     
     private func startRecording() throws {
+        self.placeLbl.frame.size.width = view.bounds.width - 64
 
         // Cancel the previous task if it's running.
         if let recognitionTask = recognitionTask {
@@ -195,14 +228,15 @@ extension VoiceMappingVC: SFSpeechRecognizerDelegate {
         // A recognition task represents a speech recognition session.
         // We keep a reference to the task so that it can be cancelled.
         recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
-            var isFinal = false
+//            var isLast = false
 
+            
             if let result = result {
-                self.placeLbl.text = result.bestTranscription.formattedString
-                isFinal = result.isFinal
-            }
+//                self.placeLbl.text = result.bestTranscription.formattedString
+//                isLast = (result.isFinal)
+//            }
 
-            if error != nil || isFinal {
+//            if error != nil || isLast {
                 self.audioEngine.stop()
                 inputNode.removeTap(onBus: 0)
 
@@ -210,7 +244,38 @@ extension VoiceMappingVC: SFSpeechRecognizerDelegate {
                 self.recognitionTask = nil
 
                 self.startTourBtn.isEnabled = true
-                self.startTourBtn.setTitle("Record", for: [])
+                
+                if preferredLanguage == "ar" {
+                    self.startTourBtn.setTitle("Record".localized("ar"), for: [])
+                } else {
+                    self.startTourBtn.setTitle("Record", for: [])
+                }
+                
+                // added from different source code
+                let bestString = result.bestTranscription.formattedString
+                
+                var lastString: String = ""
+//
+                for segment in result.bestTranscription.segments {
+                    let indexTo = bestString.index(bestString.startIndex, offsetBy: segment.substringRange.location)
+                    lastString = String(bestString[indexTo...])
+                }
+                
+                // get last string and pass it to get direction function
+                self.checkForSpotSaid(resultString: lastString)
+                self.placeLbl.text = self.location.text
+                self.getDirectionsFunc(location: self.location.text ?? "")
+
+//                let inDict = self.locationDic.contains { $0.key == bestString}
+//                if inDict {
+//                    self.placeLbl.text = bestString
+////                    self.userInputLoc = self.locationDic[bestStr!]! as! [String : String]
+//                }
+//                else {
+//                    self.placeLbl.text = "can't find it in the dictionary"
+////                    self.userInputLoc = FlyoverAwesomePlace.centralParkNY
+//                }
+                //**
                 self.startTourBtn.tintColor = .rgb(red: 101, green: 183, blue: 180)
             }
         }
@@ -221,24 +286,66 @@ extension VoiceMappingVC: SFSpeechRecognizerDelegate {
         }
 
         audioEngine.prepare()
-
-        try audioEngine.start()
-
-        placeLbl.text = "(Go ahead, I'm listening)"
+        do {
+            try audioEngine.start()
+            
+            if preferredLanguage == "ar" {
+                placeLbl.text = "(Go ahead, I'm listening)".localized("ar")
+            } else {
+                placeLbl.text = "(Go ahead, I'm listening)"
+            }
+            
+        } catch {
+            print(error)
+        }
+        
     }
 
+    func checkForSpotSaid(resultString: String){
+        switch resultString {
+        case "Session":
+            location.text = "Session road"
+        case "SM":
+            location.text = "SM Baguio"
+        default: break
+        }
+    }
+    func restartSpeechTimer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (timer) in
+            // Do whatever needs to be done when the timer expires
+            self.audioEngine.stop()
+            self.recognitionRequest?.endAudio()
+            self.startTourBtn.isEnabled = false
+            
+            if preferredLanguage == "ar" {
+                self.startTourBtn.setTitle("Stopping...".localized("ar"), for: .disabled)
+            } else {
+                self.startTourBtn.setTitle("Stopping...", for: .disabled)
+            }
+            
+        })
+    }
     // MARK: SFSpeechRecognizerDelegate
-
     public func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         if available {
             startTourBtn.isEnabled = true
-            startTourBtn.setTitle("Record", for: [])
+            
+            if preferredLanguage == "ar" {
+                self.startTourBtn.setTitle("Record".localized("ar"), for: [])
+            } else {
+                self.startTourBtn.setTitle("Record", for: [])
+            }
         } else {
             startTourBtn.isEnabled = false
             startTourBtn.setTitle("Recognition not available", for: .disabled)
         }
     }
     
+//    fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+//        return input.rawValue
+//    }
+
     
 }
 

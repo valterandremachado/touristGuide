@@ -46,6 +46,7 @@ class HelpCenterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         //        backButton.title = "Back"
         //        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         setupView()

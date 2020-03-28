@@ -21,9 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = VoiceMappingVC()
+        window?.rootViewController = ContainerVC()
         window?.makeKeyAndVisible()
         
+        if #available(iOS 13, *) {
+            window!.overrideUserInterfaceStyle = .light
+        }
 //        let navigationController = UINavigationController()
 //        navigationController.pushViewController(HomeVC(), animated: true)
 //        window?.rootViewController = navigationController

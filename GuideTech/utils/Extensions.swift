@@ -8,6 +8,30 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let darkModeEnabled = Notification.Name("com.yourApp.notifications.darkModeEnabled")
+    static let darkModeDisabled = Notification.Name("com.yourApp.notifications.darkModeDisabled")
+}
+
+// MARK: Localization Lang Extension
+
+extension String {
+    func localized(bundle: Bundle = .main, tableName: String = "Localizable") -> String {
+        return NSLocalizedString(self, tableName: tableName, value: "**\(self)**", comment: "")
+    }
+}
+
+extension String {
+func localized(_ lang:String) ->String {
+
+    let path = Bundle.main.path(forResource: lang, ofType: "lproj")
+    let bundle = Bundle(path: path!)
+
+    return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+}
+    
+}
+
 public extension UICollectionView {
 
   /**
@@ -61,8 +85,16 @@ extension UIButton {
             NSAttributedString.Key.font: titleLabel.font!
         ])
         
-        titleEdgeInsets = UIEdgeInsets(top: spacing, left: -image.size.width, bottom: -image.size.height, right: 0)
-        imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0, bottom: 0, right: -titleSize.width)
+        if preferredLanguage == "ar"
+        {
+            titleEdgeInsets = UIEdgeInsets(top: spacing, left: 0, bottom: -image.size.height, right: -image.size.width)
+            imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: -titleSize.width, bottom: 0, right: 0)
+        }
+        else
+        {
+            titleEdgeInsets = UIEdgeInsets(top: spacing, left: -image.size.width, bottom: -image.size.height, right: 0)
+            imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0, bottom: 0, right: -titleSize.width)
+        }
     }
 }
 

@@ -72,7 +72,7 @@ class MenuSliderVC: UIViewController {
     fileprivate func setupView(){
         [stackView ,tableView].forEach({view.addSubview($0)})
         
-        profileImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing:  nil, padding: UIEdgeInsets(top: 15, left: 15, bottom: 0, right: 0), size: CGSize(width: 40, height: 40))
+        profileImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing:  nil, padding: UIEdgeInsets(top: 15, left: 15, bottom: 0, right: 0), size: CGSize(width: 35, height: 35))
         
         tableView.anchor(top: stackView.safeAreaLayoutGuide.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
     }
@@ -81,6 +81,7 @@ class MenuSliderVC: UIViewController {
 
 
 extension MenuSliderVC: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
@@ -89,7 +90,13 @@ extension MenuSliderVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableCellID, for: indexPath) as! MenuSliderCell
         
         let menuOptions = MenuOptions(rawValue: indexPath.row)
-        cell.descriptionLbl.text = menuOptions?.description
+        
+        if preferredLanguage == "ar" {
+            cell.descriptionLbl.text = menuOptions?.description.localized("ar")
+        } else {
+            cell.descriptionLbl.text = menuOptions?.description
+        }
+        
         cell.iconImageView.image = menuOptions?.image
         return cell
     }

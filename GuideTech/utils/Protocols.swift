@@ -9,3 +9,7 @@
 protocol homeVCDelegate {
     func handleMenuToggle(forMenuOption menuOption: MenuOptions?)
 }
+
+//protocol AppearanceVCDelegate {
+//    func handleModeToggle(forMode AppearanceOption: AppearEnum?)
+//}

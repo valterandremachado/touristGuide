@@ -15,7 +15,6 @@ class ContainerVC: UIViewController {
     var centerController: UIViewController!
     var isExpanded = false
     
-    
     /// hiding statusBar
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation{
         return .slide
@@ -40,6 +39,7 @@ class ContainerVC: UIViewController {
         view.addSubview(centerController.view)
         addChild(centerController)
         centerController.didMove(toParent: self)
+        
     }
     
     fileprivate func configMenuController(){
@@ -56,25 +56,97 @@ class ContainerVC: UIViewController {
     // animates the burger menu and toggles selected menu option
     fileprivate func animatePanel(shouldExpand: Bool, menuOption: MenuOptions?){
         
-        if shouldExpand
+        if preferredLanguage == "ar"
         {
-            // Show Menu
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                self.centerController.view.frame.origin.x = self.centerController.view.frame.width - 80
-            }, completion: nil)
+            if shouldExpand
+            {
+                // Show Menu
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                    self.centerController.view.frame.origin.x = -(self.centerController.view.frame.width - 80) // makes view slide from right to left
+                }, completion: nil)
+            }
+            else
+            {
+                // Hide Menu
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                    self.centerController.view.frame.origin.x = 0
+                }) { (_) in
+                    
+                    guard let menuOption = menuOption else {return}
+                    self.didSelectMenuOption(menuOption: menuOption)
+                    
+                }
+            }
+            
         }
         else
         {
-            // Hide Menu
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                self.centerController.view.frame.origin.x = 0
-            }) { (_) in
-                
-                guard let menuOption = menuOption else {return}
-                self.didSelectMenuOption(menuOption: menuOption)
-                
+            if shouldExpand
+            {
+                // Show Menu
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                    self.centerController.view.frame.origin.x = self.centerController.view.frame.width - 80
+                }, completion: nil)
             }
+            else
+            {
+                // Hide Menu
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                    self.centerController.view.frame.origin.x = 0
+                }) { (_) in
+                    
+                    guard let menuOption = menuOption else {return}
+                    self.didSelectMenuOption(menuOption: menuOption)
+                    
+                }
+            }
+            
         }
+        
+//        if preferredLanguage == "en" {
+//
+//            if shouldExpand
+//            {
+//                // Show Menu
+//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+//                    self.centerController.view.frame.origin.x = self.centerController.view.frame.width - 80
+//                }, completion: nil)
+//            }
+//            else
+//            {
+//                // Hide Menu
+//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+//                    self.centerController.view.frame.origin.x = 0
+//                }) { (_) in
+//
+//                    guard let menuOption = menuOption else {return}
+//                    self.didSelectMenuOption(menuOption: menuOption)
+//
+//                }
+//            }
+//
+//        } else if preferredLanguage == "ar" {
+//
+//            if shouldExpand
+//            {
+//                // Show Menu
+//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+//                    self.centerController.view.frame.origin.x = -(self.centerController.view.frame.width - 80) // makes view slide from right to left
+//                }, completion: nil)
+//            }
+//            else
+//            {
+//                // Hide Menu
+//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+//                    self.centerController.view.frame.origin.x = 0
+//                }) { (_) in
+//
+//                    guard let menuOption = menuOption else {return}
+//                    self.didSelectMenuOption(menuOption: menuOption)
+//
+//                }
+//            }
+//        }
         
 //        animateStatusBar()
     }
@@ -105,6 +177,9 @@ class ContainerVC: UIViewController {
             showMailComposer()
             
         case .Logout:
+            let loginVC = LoginVC()
+            loginVC.modalPresentationStyle = .fullScreen
+            present(loginVC, animated: true, completion: nil)
             print("Logout")
         }
     }
@@ -127,7 +202,8 @@ extension ContainerVC: homeVCDelegate {
         }
         isExpanded = !isExpanded
         animatePanel(shouldExpand: isExpanded, menuOption: menuOption)
-        
+//        let home = HomeVC()
+//        home.menuPressed(isExpanded)
     }
     
     

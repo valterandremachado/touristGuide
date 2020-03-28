@@ -1,0 +1,87 @@
+/* 
+  Localizable.strings
+  GuideTech
+
+  Created by Valter A. Machado on 3/22/20.
+  Copyright © 2020 Valter A. Machado. All rights reserved.
+*/
+
+// Some Comment
+"Appearance" = "مظهر خارجي";
+// Some Comment
+"Language" = "لغة";
+// Some Comment
+"Settings" = "الإعدادات";
+// Some Comment
+"Back" = "عودة";
+// Some Comment
+"Get Directions" = "احصل على الاتجاهات";
+// Some Comment
+"Voice Mapping" = "رسم الخرائط الصوتية";
+// Some Comment
+"Help Center" = "مركز المساعدة";
+
+// Some Comment
+"Phone" = "هاتف";
+// Some Comment
+"Reviews" = "المراجعات";
+// Some Comment
+"Unavailable" = "غير متوفره";
+
+// Some Comment
+"Automatic" = "تلقائي";
+// Some Comment
+"English" = "الإنجليزية";
+// Some Comment
+"Arabic" = "عربى";
+
+// Some Comment
+"Dark" = "داكن";
+// Some Comment
+"Light" = "ضوء";
+// Some Comment
+"About" = "حول";
+
+// Some Comment
+"Signup" = "سجل";
+// Some Comment
+"Login" = "تسجيل الدخول";
+// Some Comment
+"Forgot password?" = "هل نسيت كلمة المرور؟";
+// Some Comment
+"Logout" = "تسجيل خروج";
+// Some Comment
+"Username" = "اسم المستخدم";
+// Some Comment
+"Email" = "البريد الإلكتروني";
+// Some Comment
+"Password" = "كلمه السر";
+// Some Comment
+"Confirm password" = "تأكيد كلمة المرور";
+
+// Some Comment
+"Hotels" = "الفنادق";
+// Some Comment
+"Tourist Spots" = "المواقع السياحية";
+// Some Comment
+"Restaurants" = "مطاعم";
+// Some Comment
+"Bus Stop" = "محطات الحافلات";
+// Some Comment
+"Maps" = "خرائط";
+
+// Some Comment
+"(Go ahead, I'm listening)" = "المضي قدما أنا أستمع";
+// Some Comment
+"Stopping..." = "وقف...";
+// Some Comment
+"Record" = "سجل";
+// Some Comment
+"Stop" = "قف";
+"Tap record to start" = "انقر فوق تسجيل للبدء";
+
+"Language" = "لغة";
+"We will close your app to change language completely,  please reopen your app after so." = "سنغلق تطبيقك لتغيير اللغة تمامًا ، يرجى إعادة فتح تطبيقك بعد ذلك";
+"Ok" = "حسنا";
+"Cancel" = "إلغاء";
+

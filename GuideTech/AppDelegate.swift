@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UITableViewCell.appearance().tintColor = .rgb(red: 101, green: 183, blue: 180)
+//        UIView.appearance().semanticContentAttribute = .forceLeftToRight
         return true
     }
 

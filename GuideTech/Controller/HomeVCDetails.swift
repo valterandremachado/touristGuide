@@ -39,7 +39,12 @@ class HomeVCDetails: UIViewController {
     lazy var name: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Unavailable"
+        
+        if preferredLanguage == "ar" {
+            lbl.text = "Unavailable".localized("ar")
+        } else {
+            lbl.text = "Unavailable"
+        }
         lbl.font = .boldSystemFont(ofSize: 20)
 
         return lbl
@@ -48,7 +53,13 @@ class HomeVCDetails: UIViewController {
     lazy var address: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Unavailable"
+        
+        if preferredLanguage == "ar" {
+            lbl.text = "Unavailable".localized("ar")
+        } else {
+            lbl.text = "Unavailable"
+        }
+        
 //        lbl.font = .boldSystemFont(ofSize: 20)
         lbl.textColor = .darkGray
         return lbl
@@ -57,7 +68,13 @@ class HomeVCDetails: UIViewController {
     lazy var phone: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Unavailable"
+        
+        if preferredLanguage == "ar" {
+            lbl.text = "Unavailable".localized("ar")
+        } else {
+            lbl.text = "Unavailable"
+        }
+        
         lbl.textColor = .rgb(red: 101, green: 183, blue: 180)
 
         return lbl
@@ -66,7 +83,13 @@ class HomeVCDetails: UIViewController {
     lazy var phoneLbl: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Phone"
+        
+        if preferredLanguage == "ar" {
+            lbl.text = "Phone".localized("ar")
+        } else {
+            lbl.text = "Phone"
+        }
+        
         lbl.textColor = .lightGray
         return lbl
     }()
@@ -74,16 +97,27 @@ class HomeVCDetails: UIViewController {
     lazy var review: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Unavailable"
+        
+        if preferredLanguage == "ar" {
+            lbl.text = "Unavailable".localized("ar")
+        } else {
+            lbl.text = "Unavailable"
+        }
+        
         lbl.textColor = .rgb(red: 101, green: 183, blue: 180)
-
         return lbl
     }()
     
     lazy var reviewLbl: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Reviews"
+        
+        if preferredLanguage == "ar" {
+            lbl.text = "Reviews".localized("ar")
+        } else {
+            lbl.text = "Reviews"
+        }
+        
         lbl.textColor = .lightGray
         return lbl
     }()
@@ -145,10 +179,17 @@ class HomeVCDetails: UIViewController {
     lazy var getLocationBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setImage(UIImage(systemName: "location"), for: .normal)
-        btn.setTitle("Get Directions", for: .normal)
+        
+        if preferredLanguage == "ar" {
+            btn.setImage(UIImage(systemName: "location"), for: .normal)
+            btn.setTitle("Get Directions".localized("ar"), for: .normal)
+        } else {
+            btn.setImage(UIImage(systemName: "location"), for: .normal)
+            btn.setTitle("Get Directions", for: .normal)
+        }
+        
         btn.backgroundColor = .rgb(red: 101, green: 183, blue: 180)
-        btn.tintColor = .darkGray
+        btn.tintColor = .black
         btn.clipsToBounds = true
         btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(getDirectionPressed), for: .touchUpInside)
@@ -192,7 +233,12 @@ class HomeVCDetails: UIViewController {
         imageView.image = UIImage(named: "restaurant1.jpg")
         
         // navController setup
-        backButton.title = "Back"
+        if preferredLanguage == "ar" {
+           backButton.title = "Back".localized("ar")
+        } else {
+            backButton.title = "Back"
+        }
+        
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         let doneBtnItem = UIBarButtonItem(customView: doneBtn)
         navigationItem.leftBarButtonItem =  doneBtnItem

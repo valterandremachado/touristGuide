@@ -19,7 +19,8 @@ let headerID = "header"
 class HomeVC: UIViewController, UISearchBarDelegate {
     
     var delegate: homeVCDelegate?
-    
+//    var delegate2: AppearanceVCDelegate?
+
     let colorArray = [UIColor.blue, UIColor.green, UIColor.blue, UIColor.gray, UIColor.yellow]
     
     // bus stop arrays
@@ -68,15 +69,15 @@ class HomeVC: UIViewController, UISearchBarDelegate {
         return cv
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        let arr = NSArray(objects: "en")
+//        UserDefaults.standard.set(arr, forKey: "AppleLanguages")
+        view.backgroundColor = .rgb(red: 240, green: 240, blue: 240)
         
-        
-        view.backgroundColor = .white
         setView()
-        //        fetchJSONData()
     }
+    
     
     
     fileprivate func setView(){
@@ -114,9 +115,18 @@ class HomeVC: UIViewController, UISearchBarDelegate {
     
     @objc fileprivate func menuSlidePressed(){
         delegate?.handleMenuToggle(forMenuOption: nil)
+
     }
     
-   
+    func menuPressed(_ isPressed: Bool){
+        print("123")
+        if isPressed{
+            view.isUserInteractionEnabled = false
+        }
+        else{
+            view.isUserInteractionEnabled = true
+        }
+    }
     
 }
 
@@ -142,21 +152,46 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
             headerID, for: indexPath) as! Header
         //        header.backgroundColor = .yellow
         //        header.seeAllBtn.addTarget(self, action: #selector(seeAllBtnPressed), for: .touchUpInside)
+        
+        
         switch indexPath.section {
         case 0:
-            header.sectionTitle.text = "Hotels"
+            
+            if preferredLanguage == "ar" {
+                header.sectionTitle.text = "Hotels".localized("ar")
+            } else {
+                header.sectionTitle.text = "Hotels"
+            }
             header.seeAllBtn.isHidden = false
             return header
+            
         case 1:
-            header.sectionTitle.text = "Tourist Spots"
+            if preferredLanguage == "ar" {
+                header.sectionTitle.text = "Tourist Spots".localized("ar")
+            } else {
+                header.sectionTitle.text = "Tourist Spots"
+            }
             return header
+            
         case 2:
-            header.sectionTitle.text = "Restaurants"
+            if preferredLanguage == "ar" {
+                header.sectionTitle.text = "Restaurants".localized("ar")
+            } else {
+                print("this is Arabic")
+                header.sectionTitle.text = "Restaurants"
+            }
             return header
+            
         case 3:
-            header.sectionTitle.text = "Bus Stop"
+            if preferredLanguage == "ar" {
+                header.sectionTitle.text = "Bus Stop".localized("ar")
+            } else {
+                print("this is Arabic")
+                header.sectionTitle.text = "Bus Stop"
+            }
             header.seeAllBtn.isHidden = true
             return header
+            
         default:
             header.seeAllBtn.isHidden = false
             break
