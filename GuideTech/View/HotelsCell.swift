@@ -47,26 +47,13 @@ class HotelsCell: UICollectionViewCell {
    
     override init(frame: CGRect) {
         super.init(frame: .zero)
-       // Setup ShimmeringView
-//       let shimmerView = ShimmeringView(frame: self.view.bounds)
-//       self.view.addSubview(shimmerView)
-//
-//       // Setup the view you want shimmered
-//       let label = UILabel(frame: shimmerView.bounds)
-//       label.text = "This is my shimmering text"
-//
-//       // Add the view you want shimmered to the `shimmerView`
-//       shimmerView.contentView = label
-//
-//       // Start shimmering
-//       shimmerView.isShimmering = true
-//
-//       // To stop shimmering.
-//       shimmerView.isShimmering = false
-        setupView()
-        //        contentView.backgroundColor = .blue
+      
         fetchJSONData()
+        setupView()
+        
+        //        contentView.backgroundColor = .blue
     }
+    
     
     fileprivate  func setupView(){
         [collectionView].forEach({contentView.addSubview($0)})
@@ -94,7 +81,9 @@ extension HotelsCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSo
             
             Alamofire.request(url, method: .get, headers: headers)
                 .responseJSON { response in
-                    
+                    if response.error != nil {
+                        print("Yelp Api error")
+                    }
                     //                guard let data = response.data else {return}
                     //                print(data)
                     //                print(response.result.value)
@@ -133,13 +122,16 @@ extension HotelsCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSo
         
         cell.name.text = self.hotelsData[indexPath.item].name
         
-        if let imageUrl = self.hotelsData[indexPath.item].image_url{
-            Alamofire.request(imageUrl).responseImage { (response) in
-                if let image = response.result.value {
-                    cell.coverImageView.image = image
+        DispatchQueue.main.async {
+            if let imageUrl = self.hotelsData[indexPath.item].image_url{
+                Alamofire.request(imageUrl).responseImage { (response) in
+                    if let image = response.result.value {
+                        cell.coverImageView.image = image
+                    }
                 }
             }
         }
+        
         cell.rating.text = "\(self.hotelsData[indexPath.item].rating ?? 0) ★"
         cell.address.text = self.hotelsData[indexPath.item].location?.maxLength(length: 18)
         cell.pricePerNight.text = self.hotelsData[indexPath.item].price
@@ -149,7 +141,7 @@ extension HotelsCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSo
 
 //        cell.delegate = self
 
-
+//        }
         
         return cell
     }

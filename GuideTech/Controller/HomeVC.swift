@@ -8,7 +8,7 @@
 import UIKit
 import LBTATools
 import Alamofire
-//import ShimmerSwift
+import Firebase
 
 let hotelsCellID = "hotelsCell"
 let touristSpotsCellID = "touristSpotsCell"
@@ -16,12 +16,19 @@ let restaurantsCellID = "restaurantsCell"
 let busStopCellID = "busStopCell"
 let headerID = "header"
 
+var customView = UIView()
+let transparentView = UIView()
+let transparentView2 = UIView()
+var menuIsOn = false
+
+let colorArray = [UIColor.blue, UIColor.green, UIColor.blue, UIColor.gray, UIColor.yellow]
+
 class HomeVC: UIViewController, UISearchBarDelegate {
     
     var delegate: homeVCDelegate?
-//    var delegate2: AppearanceVCDelegate?
-
-    let colorArray = [UIColor.blue, UIColor.green, UIColor.blue, UIColor.gray, UIColor.yellow]
+    
+    // check whenever menu is pressed
+    
     
     // bus stop arrays
     let nameArray4 = ["Victory Liner Bus Terminal", "Gov. Pack Road Bus Terminal"]
@@ -69,38 +76,62 @@ class HomeVC: UIViewController, UISearchBarDelegate {
         return cv
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        let arr = NSArray(objects: "en")
 //        UserDefaults.standard.set(arr, forKey: "AppleLanguages")
-        view.backgroundColor = .rgb(red: 240, green: 240, blue: 240)
-        
+        view.backgroundColor = .white
+//        checkUserIsLoggedIn()
         setView()
+        setupTransparentView()
     }
-    
-    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//    }
+    fileprivate func checkUserIsLoggedIn(){
+          if Auth.auth().currentUser == nil {
+              DispatchQueue.main.async {
+                  let loginVC = LoginVC()
+                  let navigationController = UINavigationController(rootViewController: loginVC)
+                  navigationController.modalPresentationStyle = .fullScreen
+                  self.present(navigationController, animated: false, completion: nil)
+                  return
+              }
+          } else {
+              print("is Logged in")
+              let uid = Auth.auth().currentUser?.uid
+              let db = Database.database().reference().child("users").child(uid!)
+              db.observeSingleEvent(of: .value) { (snapshot) in
+                  // print(snapshot)
+                  DispatchQueue.main.async {
+                      if let dict = snapshot.value as? [String: AnyObject] {
+                          userName.text = dict["username"] as? String
+                          let profileUrl = dict["profileImageUrl"] as! String
+                          
+                          let storageRef = Storage.storage().reference(forURL: profileUrl)
+                          storageRef.downloadURL{ (url, error) in
+                              do {
+                                  guard let url = url else { return }
+                                  let data = try Data(contentsOf: url)
+                                  let image = UIImage(data: data)
+                                  profileImageView.image = image
+                              } catch {
+                                  print("no image: " + error.localizedDescription)
+                              }
+                              
+                          }
+                      }
+                  }
+                  
+              }
+          }
+          
+      }
     
     fileprivate func setView(){
-        [collectionView].forEach({view.addSubview($0)})
-//        let profileImage = UIImage.init(named: "image1.jpg")
+        [collectionView, transparentView2].forEach({view.addSubview($0)})
         
-//        let profileBtn = UIButton(type: .custom)
-////        profileBtn.imageView?.contentMode = .scaleAspectFill
-////        profileBtn.setImage(profileImage, for: .normal)
-//        profileBtn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-//        profileBtn.layer.cornerRadius = profileBtn.frame.size.height/2
-//        profileBtn.layer.masksToBounds = false
-//        profileBtn.clipsToBounds = true
-//        profileBtn.backgroundColor = .red
-//        //        profileBtn.layer.borderWidth = 1.5
-//        profileBtn.sizeToFit()
-//        let widthConstraint = profileBtn.widthAnchor.constraint(equalToConstant: 30)
-//        let heightConstraint = profileBtn.heightAnchor.constraint(equalToConstant: 30)
-//        heightConstraint.isActive = true
-//        widthConstraint.isActive = true
-//
-//        let profileItem = UIBarButtonItem(customView: profileBtn)
-//        navigationItem.leftBarButtonItem =  profileItem
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(menuSlidePressed))
         navigationItem.leftBarButtonItem?.tintColor = .rgb(red: 101, green: 183, blue: 180)
         navigationItem.title = "GuideTech"
@@ -111,27 +142,137 @@ class HomeVC: UIViewController, UISearchBarDelegate {
         //        mainSearchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
         collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, padding: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0))
         //        searchBars = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 0))
+        
+        transparentView2.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+    }
+    
+    func setupTransparentView() {
+        transparentView.backgroundColor =  UIColor.black.withAlphaComponent(0.3)
+        transparentView2.backgroundColor =  UIColor.black.withAlphaComponent(0.3)
+        transparentView.translatesAutoresizingMaskIntoConstraints = false
+        transparentView2.translatesAutoresizingMaskIntoConstraints = false
+
+        navigationController?.navigationBar.addSubview(transparentView)
+        
+        transparentView.isHidden = true
+        transparentView2.isHidden = true
+        transparentView.isUserInteractionEnabled = true
+        transparentView2.isUserInteractionEnabled = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideSlider))
+        transparentView.addGestureRecognizer(tapGesture)
+        
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(hideSlider2))
+        transparentView2.addGestureRecognizer(tapGesture2)
+        
+        NSLayoutConstraint.activate([
+            transparentView.widthAnchor
+                .constraint(equalToConstant: self.view.bounds.width),
+            transparentView.heightAnchor
+                .constraint(equalToConstant: self.view.bounds.height + 50),
+            transparentView.topAnchor
+                .constraint(equalTo: (navigationController?.navigationBar.topAnchor)!, constant: -(navigationController?.navigationBar.frame.height)!),
+            transparentView.trailingAnchor
+                .constraint(equalTo: (navigationController?.navigationBar.trailingAnchor)!, constant: 0)
+        ])
+        
+        customView = transparentView
+        
     }
     
     @objc fileprivate func menuSlidePressed(){
-        delegate?.handleMenuToggle(forMenuOption: nil)
+        DispatchQueue.main.async {
+            self.delegate?.handleMenuToggle(forMenuOption: nil)
+        }
 
+        menuIsOn = !menuIsOn
+        if !menuIsOn {
+            view.isUserInteractionEnabled = true
+            customView.isHidden = true
+            transparentView2.isHidden = true
+
+            // hide transparentView
+            UIView.animate(withDuration: 0.5, animations: {
+                transparentView.alpha = 0
+                transparentView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                transparentView2.alpha = 0
+                transparentView2.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            }) { (_) in
+                transparentView.removeFromSuperview()
+                transparentView2.removeFromSuperview()
+            }
+
+        } else {
+//            view.isUserInteractionEnabled = false
+            customView.isHidden = false
+            transparentView2.isHidden = false
+
+            // show transparentView
+            transparentView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            transparentView.alpha = 0
+            transparentView2.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            transparentView2.alpha = 0
+            UIView.animate(withDuration: 0.5) {
+                transparentView.alpha = 1
+                transparentView.transform = CGAffineTransform.identity
+                transparentView2.alpha = 1
+                transparentView2.transform = CGAffineTransform.identity
+            }
+        }
+//        print("menuSlidePressed: \(menuIsOn)")
     }
     
-    func menuPressed(_ isPressed: Bool){
-        print("123")
-        if isPressed{
-            view.isUserInteractionEnabled = false
-        }
-        else{
+    @objc func hideSlider() {
+        self.delegate?.handleMenuToggle(forMenuOption: nil)
+
+        menuIsOn = !menuIsOn
+        if !menuIsOn {
             view.isUserInteractionEnabled = true
+            customView.isHidden = true
+            transparentView2.isHidden = true
+            
+            // hide transparentView
+            UIView.animate(withDuration: 0.5, animations: {
+                transparentView.alpha = 0
+                transparentView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                transparentView2.alpha = 0
+                transparentView2.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            })
+
+        } else {
+//            view.isUserInteractionEnabled = false
+            customView.isHidden = false
+            transparentView2.isHidden = false
+        }
+    }
+    
+    @objc func hideSlider2(){
+        self.delegate?.handleMenuToggle(forMenuOption: nil)
+        
+        menuIsOn = !menuIsOn
+        if !menuIsOn {
+            view.isUserInteractionEnabled = true
+            customView.isHidden = true
+            transparentView2.isHidden = true
+            
+            // hide transparentView
+            UIView.animate(withDuration: 0.5, animations: {
+                transparentView.alpha = 0
+                transparentView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                transparentView2.alpha = 0
+                transparentView2.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            })
+            
+        } else {
+            //            view.isUserInteractionEnabled = false
+            customView.isHidden = false
+            transparentView2.isHidden = false
         }
     }
     
 }
 
-
-extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
+extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -230,7 +371,6 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         
         switch indexPath.section {
         case 0:
-           
             return cell
         case 1:
             // tourist spots cell
@@ -256,6 +396,7 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
         }
         return cell
     }
+    
     @objc func getDirectionPressed(sender: UIButton) {
         
         let mapVC = MapsVC()
@@ -308,6 +449,5 @@ extension HomeVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
     //            return CGSize(width: 60.0, height: 30.0)
     //    }
 }
-
 
 

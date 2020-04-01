@@ -8,9 +8,8 @@
 
 import UIKit
 
+// Global variables
 let preferredLanguage = NSLocale.preferredLanguages[0]
-
-
 let langID = "cellID"
 
 class LanguageVC: UIViewController {
@@ -50,7 +49,7 @@ class LanguageVC: UIViewController {
             navigationItem.title = "Language"
         }
         
-        view.backgroundColor = .rgb(red: 240, green: 240, blue: 240)
+        view.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .rgb(red: 101, green: 183, blue: 180)
 
         setupView()
@@ -140,15 +139,12 @@ extension LanguageVC: UITableViewDelegate, UITableViewDataSource {
             oldCell?.accessoryType = .none
         }
 
-        // save the selected index path
-        selectedIndexPath = indexPath
-
-        let langEnum = LangEnum(rawValue: selectedIndexPath!.row)
+        let langEnum = LangEnum(rawValue: indexPath.row)
 //        let homeVC = HomeVC()
         switch langEnum {
         case .English:
             print("english")
-            
+
             if preferredLanguage == "ar"{
                 let alertController = UIAlertController(title: "Language".localized("ar"), message: "We will close your app to change language completely,  please reopen your app after so.".localized("ar"), preferredStyle: .alert)
                 
@@ -162,6 +158,9 @@ extension LanguageVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 let cancelAction = UIAlertAction(title: "Cancel".localized("ar"), style: .cancel) {
                     UIAlertAction in
+                    // didn't choose english as lang move checkmark back to arabic
+                    self.selectedIndexPath?.row = 1
+                    self.tableView.reloadData()
                     NSLog("Cancel Pressed")
                 }
                 alertController.view.tintColor = .rgb(red: 101, green: 183, blue: 180)
@@ -183,6 +182,9 @@ extension LanguageVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
                     UIAlertAction in
+                    // didn't choose english as lang move checkmark back to arabic
+                    self.selectedIndexPath?.row = 1
+                    self.tableView.reloadData()
                     NSLog("Cancel Pressed")
                 }
                 
@@ -210,6 +212,9 @@ extension LanguageVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 let cancelAction = UIAlertAction(title: "Cancel".localized("ar"), style: .cancel) {
                     UIAlertAction in
+                    // didn't choose arabic as lang move checkmark back to english
+                    self.selectedIndexPath?.row = 0
+                    self.tableView.reloadData()
                     NSLog("Cancel Pressed")
                 }
                 alertController.view.tintColor = .rgb(red: 101, green: 183, blue: 180)
@@ -218,7 +223,6 @@ extension LanguageVC: UITableViewDelegate, UITableViewDataSource {
                 self.present(alertController, animated: true, completion: nil)
             }
             else {
-                
                 let alertController = UIAlertController(title: "Language", message: "We will close your app to change language completely,  please reopen your app after so.", preferredStyle: .alert)
                 
                 let okAction = UIAlertAction(title: "Ok", style: .default) {
@@ -231,6 +235,9 @@ extension LanguageVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {
                     UIAlertAction in
+                    // didn't choose arabic as lang move checkmark back to english
+                    self.selectedIndexPath?.row = 0
+                    self.tableView.reloadData()
                     NSLog("Cancel Pressed")
                 }
                 
@@ -243,7 +250,8 @@ extension LanguageVC: UITableViewDelegate, UITableViewDataSource {
             
         default: break
         }
-       
+       // save the selected index path
+       selectedIndexPath = indexPath
         // stores the selected indexPath with the checkmark
         storeData()
         

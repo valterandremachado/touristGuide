@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         UITableViewCell.appearance().tintColor = .rgb(red: 101, green: 183, blue: 180)
 //        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+        
+        FirebaseApp.configure()
         return true
     }
 

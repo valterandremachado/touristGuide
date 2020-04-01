@@ -21,7 +21,8 @@ class LanguageCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         //        setupView()
-        
+        backgroundColor = .rgb(red: 240, green: 240, blue: 240)
+
         /// Adding tableView right indicator
 //        self.accessoryType = .disclosureIndicator
 //        /// Changing selection style

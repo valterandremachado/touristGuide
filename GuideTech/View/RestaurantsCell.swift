@@ -126,10 +126,12 @@ extension RestaurantsCell: UICollectionViewDelegateFlowLayout, UICollectionViewD
         
         cell.name.text = self.restaurantData[indexPath.item].name?.maxLength(length: 15)
         
-        if let imageUrl = self.restaurantData[indexPath.item].image_url{
-            Alamofire.request(imageUrl).responseImage { (response) in
-                if let image = response.result.value {
-                    cell.coverImageView.image = image
+        DispatchQueue.main.async {
+            if let imageUrl = self.restaurantData[indexPath.item].image_url{
+                Alamofire.request(imageUrl).responseImage { (response) in
+                    if let image = response.result.value {
+                        cell.coverImageView.image = image
+                    }
                 }
             }
         }

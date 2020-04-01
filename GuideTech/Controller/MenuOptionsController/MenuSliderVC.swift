@@ -8,29 +8,32 @@
 
 import UIKit
 import LBTATools
+import Firebase
 
-private let tableCellID = "cellID"
+// MARK: - Global variables
+var profileImageView: UIImageView = {
+    let iv = UIImageView()
+    iv.contentMode = .scaleAspectFill
+    iv.clipsToBounds = true
+    //        iv.backgroundColor = .red
+    iv.image = UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.rgb(red: 101, green: 183, blue: 180), renderingMode: .alwaysOriginal)
+    return iv
+}()
+
+var userName: UILabel = {
+    let lbl = UILabel()
+    lbl.textColor = .black
+    lbl.font = .boldSystemFont(ofSize: 20)
+    lbl.text = "loading..."
+    return lbl
+}()
 
 class MenuSliderVC: UIViewController {
     
     var delegate: homeVCDelegate?
+    private let tableCellID = "cellID"
 
-    lazy var profileImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
-        iv.clipsToBounds = true
-        iv.backgroundColor = .red
-        iv.image = UIImage(named: "image1.jpg")
-        return iv
-    }()
     
-    lazy var userName: UILabel = {
-        let lbl = UILabel()
-        lbl.textColor = .black
-        lbl.font = .boldSystemFont(ofSize: 20)
-        lbl.text = "User Name"
-        return lbl
-    }()
     
     lazy var stackView: UIStackView = {
         var sv = UIStackView(arrangedSubviews: [profileImageView, userName])
@@ -47,7 +50,7 @@ class MenuSliderVC: UIViewController {
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-//        tv.backgroundColor = .white
+        tv.backgroundColor = .white
         //        tv.separatorColor = .gray
         tv.isScrollEnabled = false
         tv.separatorStyle = .none
@@ -60,13 +63,58 @@ class MenuSliderVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkUserIsLoggedIn()
         view.backgroundColor = .white
+        self.tableView.tableFooterView = UIView()
         setupView()
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//        checkUserIsLoggedIn()
+//    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        print("sliderVC")
+//    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImageView.roundedImage()
+    }
+    
+    
+    fileprivate func checkUserIsLoggedIn(){
+        if Auth.auth().currentUser == nil {
+           print("User is not logged in.")
+        }
+        else
+        {
+            let uid = Auth.auth().currentUser?.uid
+            let db = Database.database().reference().child("users").child(uid!)
+            db.observeSingleEvent(of: .value) { (snapshot) in
+                // print(snapshot)
+                DispatchQueue.main.async {
+                    if let dict = snapshot.value as? [String: AnyObject] {
+                        userName.text = dict["username"] as? String
+                        let profileUrl = dict["profileImageUrl"] as! String
+                        
+                        let storageRef = Storage.storage().reference(forURL: profileUrl)
+                        storageRef.downloadURL{ (url, error) in
+                            do {
+                                guard let url = url else { return }
+                                let data = try Data(contentsOf: url)
+                                let image = UIImage(data: data)
+                                profileImageView.image = image
+                            } catch {
+                                print("no image: " + error.localizedDescription)
+                            }
+                            
+                        }
+                    }
+                }
+                
+            }
+            
+        }
     }
     
     fileprivate func setupView(){
@@ -102,8 +150,27 @@ extension MenuSliderVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let menuOptions = MenuOptions(rawValue: indexPath.row)
         delegate?.handleMenuToggle(forMenuOption: menuOptions)
+        
+        menuIsOn = !menuIsOn
+        if !menuIsOn {
+            transparentView.isHidden = true
+            transparentView2.isHidden = true
+            
+            // hide transparentView
+            UIView.animate(withDuration: 0.5, animations: {
+                transparentView.alpha = 0
+                transparentView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                transparentView2.alpha = 0
+                transparentView2.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            })
+            
+        } else {
+            transparentView.isHidden = false
+            transparentView2.isHidden = false
+        }
     }
     
 }

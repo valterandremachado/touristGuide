@@ -51,7 +51,7 @@ class SettingsVC: UIViewController {
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .rgb(red: 240, green: 240, blue: 240)
+        view.backgroundColor = .white
         //        backButton.title = "Back"
         //        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         setupView()
@@ -111,7 +111,8 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         /// Disable selected cell highlight after click on it.
         tableView.deselectRow(at: indexPath, animated: true)
-
+    
+        
         let settingsEnum = SettingsEnum(rawValue: indexPath.row)
         
         switch settingsEnum {

@@ -8,30 +8,75 @@
 
 import UIKit
 import MessageUI
+import Firebase
 
 class ContainerVC: UIViewController {
     
     var menuVC: MenuSliderVC!
     var centerController: UIViewController!
     var isExpanded = false
-    
-    /// hiding statusBar
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation{
-        return .slide
-    }
-    
-    override var prefersStatusBarHidden: Bool{
-        return isExpanded
-    }
+//    /// hiding statusBar
+//    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation{
+//        return .slide
+//    }
+//
+//    override var prefersStatusBarHidden: Bool{
+//        return isExpanded
+//    }
     //**
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .purple
+        view.backgroundColor = .rgb(red: 240, green: 240, blue: 240)
+        checkUserIsLoggedIn()
         configHomeVC()
-        
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+////        checkUserIsLoggedIn()
+//    }
+    
+    fileprivate func checkUserIsLoggedIn(){
+        if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+                let loginVC = LoginVC()
+                let navigationController = UINavigationController(rootViewController: loginVC)
+                navigationController.modalPresentationStyle = .fullScreen
+                self.present(navigationController, animated: false, completion: nil)
+                return
+            }
+        } else {
+            print("is Logged in")
+            let uid = Auth.auth().currentUser?.uid
+            let db = Database.database().reference().child("users").child(uid!)
+            db.observeSingleEvent(of: .value) { (snapshot) in
+                // print(snapshot)
+                DispatchQueue.main.async {
+                    if let dict = snapshot.value as? [String: AnyObject] {
+                        userName.text = dict["username"] as? String
+                        let profileUrl = dict["profileImageUrl"] as! String
+                        
+                        let storageRef = Storage.storage().reference(forURL: profileUrl)
+                        storageRef.downloadURL{ (url, error) in
+                            do {
+                                guard let url = url else { return }
+                                let data = try Data(contentsOf: url)
+                                let image = UIImage(data: data)
+                                profileImageView.image = image
+                            } catch {
+                                print("no image: " + error.localizedDescription)
+                            }
+                            
+                        }
+                    }
+                }
+                
+            }
+        }
+        
+    }
+       
     fileprivate func configHomeVC(){
         let homeVC = HomeVC()
         homeVC.delegate = self
@@ -52,11 +97,11 @@ class ContainerVC: UIViewController {
 //            print("menuSlider added...")
         }
     }
-    
+ 
     // animates the burger menu and toggles selected menu option
     fileprivate func animatePanel(shouldExpand: Bool, menuOption: MenuOptions?){
         
-        if preferredLanguage == "ar"
+        if preferredLanguage == "ar" // arabic
         {
             if shouldExpand
             {
@@ -79,7 +124,7 @@ class ContainerVC: UIViewController {
             }
             
         }
-        else
+        else // english
         {
             if shouldExpand
             {
@@ -87,6 +132,8 @@ class ContainerVC: UIViewController {
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
                     self.centerController.view.frame.origin.x = self.centerController.view.frame.width - 80
                 }, completion: nil)
+//                transparentView.isHidden = false
+//                transparentView2.isHidden = false
             }
             else
             {
@@ -102,51 +149,6 @@ class ContainerVC: UIViewController {
             }
             
         }
-        
-//        if preferredLanguage == "en" {
-//
-//            if shouldExpand
-//            {
-//                // Show Menu
-//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-//                    self.centerController.view.frame.origin.x = self.centerController.view.frame.width - 80
-//                }, completion: nil)
-//            }
-//            else
-//            {
-//                // Hide Menu
-//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-//                    self.centerController.view.frame.origin.x = 0
-//                }) { (_) in
-//
-//                    guard let menuOption = menuOption else {return}
-//                    self.didSelectMenuOption(menuOption: menuOption)
-//
-//                }
-//            }
-//
-//        } else if preferredLanguage == "ar" {
-//
-//            if shouldExpand
-//            {
-//                // Show Menu
-//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-//                    self.centerController.view.frame.origin.x = -(self.centerController.view.frame.width - 80) // makes view slide from right to left
-//                }, completion: nil)
-//            }
-//            else
-//            {
-//                // Hide Menu
-//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-//                    self.centerController.view.frame.origin.x = 0
-//                }) { (_) in
-//
-//                    guard let menuOption = menuOption else {return}
-//                    self.didSelectMenuOption(menuOption: menuOption)
-//
-//                }
-//            }
-//        }
         
 //        animateStatusBar()
     }
@@ -169,18 +171,65 @@ class ContainerVC: UIViewController {
             print("Settings")
             
         case .HelpCenter:
-//            let helpCenterVC = HelpCenterVC()
-//            let navigationController = UINavigationController(rootViewController: helpCenterVC)
-//            navigationController.modalPresentationStyle = .fullScreen
-//            present(navigationController, animated: true)
             print("HelpCenter")
             showMailComposer()
             
         case .Logout:
-            let loginVC = LoginVC()
-            loginVC.modalPresentationStyle = .fullScreen
-            present(loginVC, animated: true, completion: nil)
-            print("Logout")
+            // Logging out the user
+            
+            if preferredLanguage == "ar" {
+                
+                let alertController = UIAlertController(title: "Log Out".localized("ar"), message: "Are you sure you want to log out?".localized("ar"), preferredStyle: .alert)
+                
+                let logOutAction = UIAlertAction(title: "Log Out".localized("ar"), style: .destructive) { UIAlertAction in
+                    do {
+                        try Auth.auth().signOut()
+                    } catch let logoutError {
+                        print(logoutError)
+                    }
+                    
+                    let loginVC = LoginVC()
+                    let navigationController = UINavigationController(rootViewController: loginVC)
+                    navigationController.modalPresentationStyle = .fullScreen
+                    self.present(navigationController, animated: true, completion: nil)
+                    print("Logout")
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel".localized("ar"), style: .cancel) { UIAlertAction in }
+                
+                alertController.view.tintColor = .rgb(red: 101, green: 183, blue: 180)
+                alertController.addAction(logOutAction)
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true, completion: nil)
+                
+            } else {
+                
+                let alertController = UIAlertController(title: "Log Out", message: "Are you sure you want to log out?", preferredStyle: .alert)
+                
+                let logOutAction = UIAlertAction(title: "Log Out", style: .destructive) { UIAlertAction in
+                    do {
+                        try Auth.auth().signOut()
+                    } catch let logoutError {
+                        print(logoutError)
+                    }
+                    
+                    let loginVC = LoginVC()
+                    let navigationController = UINavigationController(rootViewController: loginVC)
+                    navigationController.modalPresentationStyle = .fullScreen
+                    self.present(navigationController, animated: true, completion: nil)
+                    print("Logout")
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { UIAlertAction in }
+                
+                alertController.view.tintColor = .rgb(red: 101, green: 183, blue: 180)
+                alertController.addAction(logOutAction)
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true, completion: nil)
+                
+            }
+            
+            
         }
     }
     /// func to hide the statusBar
@@ -202,10 +251,9 @@ extension ContainerVC: homeVCDelegate {
         }
         isExpanded = !isExpanded
         animatePanel(shouldExpand: isExpanded, menuOption: menuOption)
-//        let home = HomeVC()
-//        home.menuPressed(isExpanded)
+//        print("isExplanded: \(isExpanded)")
+        
     }
-    
     
 }
 

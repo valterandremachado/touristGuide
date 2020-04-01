@@ -34,6 +34,7 @@ class MapsVC: UIViewController {
 //        navController.delegate = self
         setupLocationManager()
         setupView()
+        zoomInMap()
         getDirectionsFunc(location: location)
 //        print("location: \(location)")
     }
@@ -75,13 +76,18 @@ extension MapsVC: CLLocationManagerDelegate, MKMapViewDelegate {
 //        guard let location = locations.last else {return}
 //        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
 //        let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-//        mapView.setRegion(region, animated: true)
+//        mapView.setRegion(region, animated: false)
         print(locations)
+    }
+    
+    fileprivate func zoomInMap(){
+        let userLocation = (locationManager.location?.coordinate)!
+        let region = MKCoordinateRegion(center: userLocation, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+        mapView.setRegion(region, animated: true)
     }
     
     fileprivate func mapThis(destinationCoord: CLLocationCoordinate2D){
         let userLocation = (locationManager.location?.coordinate)!
-//
 //        let region = MKCoordinateRegion(center: userLocation, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
 //        mapView.setRegion(region, animated: true)
         

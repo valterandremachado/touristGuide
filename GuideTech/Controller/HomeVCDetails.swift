@@ -189,7 +189,7 @@ class HomeVCDetails: UIViewController {
         }
         
         btn.backgroundColor = .rgb(red: 101, green: 183, blue: 180)
-        btn.tintColor = .black
+        btn.tintColor = .white
         btn.clipsToBounds = true
         btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(getDirectionPressed), for: .touchUpInside)

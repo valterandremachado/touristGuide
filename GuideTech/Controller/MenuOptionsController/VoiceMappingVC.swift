@@ -11,12 +11,13 @@ import LBTATools
 import FlyoverKit
 import MapKit
 import Speech
+import AVFoundation
 //import AVFoundation
 //import AVKit
 
 class VoiceMappingVC: UIViewController {
     var timer : Timer?
-
+        
     // MARK: Speech Recognition Setup
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -24,7 +25,10 @@ class VoiceMappingVC: UIViewController {
     private let audioEngine = AVAudioEngine()
     
     // MARK: - Properties
-    var locationDic: [String: Any] = ["Session road": "Session road", "Burnham Park": "Burnham Park", "Mines View Park": "Mines View Park"]
+    var locationDic: [String: Any] = ["Session road": "Session road",
+                                      "Burnham Park": "Burnham Park",
+                                      "Mines View Park": "Mines View Park"]
+    
     var userInputLoc = ["Session road": "Session road"]
     var location = UILabel()
     
@@ -34,6 +38,7 @@ class VoiceMappingVC: UIViewController {
         mp.delegate = self
         mp.userLocation.title = "Me"
         mp.mapType = .mutedStandard
+        
         return mp
     }()
     
@@ -84,20 +89,42 @@ class VoiceMappingVC: UIViewController {
         //  sv.addBackground(color: .gray)
         return sv
     }()
-    
+
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .rgb(red: 245, green: 245, blue: 245)
+
+        view.backgroundColor = .white
+        
+        if preferredLanguage == "ar" {
+            saySomething(say: "انقر فوق تسجيل للبدء", lang: "ar-SA")
+            
+        } else {
+            saySomething(say: "Tap record to start", lang: "en-US")
+        }
         
         setupLocationManager()
         setupView()
+        zoomInMap()
 //        getDirectionsFunc(location: location)
         print("location: \(location)")
         startTourBtn.isEnabled = false
 //        restartSpeechTimer()
     }
     
+    func saySomething(say: String, lang: String){
+        // Line 1. Create an instance of AVSpeechSynthesizer.
+        let speechSynthesizer = AVSpeechSynthesizer()
+        // Line 2. Create an instance of AVSpeechUtterance and pass in a String to be spoken.
+        let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string:
+            say)
+        //Line 3. Specify the speech utterance rate. 1 = speaking extremely the higher the values the slower speech patterns. The default rate, AVSpeechUtteranceDefaultSpeechRate is 0.5
+        speechUtterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        // Line 4. Specify the voice. It is explicitly set to English here, but it will use the device default if not specified.
+        speechUtterance.voice = AVSpeechSynthesisVoice(language: lang)
+        // Line 5. Pass in the urrerance to the synthesizer to actually speak.
+        speechSynthesizer.speak(speechUtterance)
+    }
     override public func viewDidAppear(_ animated: Bool) {
         setupSpeechRecogn()
     }
@@ -263,9 +290,10 @@ extension VoiceMappingVC: SFSpeechRecognizerDelegate {
                 
                 // get last string and pass it to get direction function
                 self.checkForSpotSaid(resultString: lastString)
+                self.placeLbl.text = bestString
                 self.placeLbl.text = self.location.text
                 self.getDirectionsFunc(location: self.location.text ?? "")
-
+                
 //                let inDict = self.locationDic.contains { $0.key == bestString}
 //                if inDict {
 //                    self.placeLbl.text = bestString
@@ -278,6 +306,7 @@ extension VoiceMappingVC: SFSpeechRecognizerDelegate {
                 //**
                 self.startTourBtn.tintColor = .rgb(red: 101, green: 183, blue: 180)
             }
+            
         }
 
         let recordingFormat = inputNode.outputFormat(forBus: 0)
@@ -291,8 +320,10 @@ extension VoiceMappingVC: SFSpeechRecognizerDelegate {
             
             if preferredLanguage == "ar" {
                 placeLbl.text = "(Go ahead, I'm listening)".localized("ar")
+//                saySomething("Go ahead, I'm listening")
             } else {
                 placeLbl.text = "(Go ahead, I'm listening)"
+//                saySomething("Go ahead, I'm listening")
             }
             
         } catch {
@@ -303,13 +334,32 @@ extension VoiceMappingVC: SFSpeechRecognizerDelegate {
 
     func checkForSpotSaid(resultString: String){
         switch resultString {
-        case "Session":
+        case "Session": // working
             location.text = "Session road"
-        case "SM":
+        case "SM": // working
             location.text = "SM Baguio"
+        case "Mines": // working
+            location.text = "Mines View Park"
+        case "Botanical":
+            location.text = "Botanical Garden"
+        case "Burnham":
+            location.text = "Burnham Park"
+        case "Camp": // working
+            location.text = "Camp John Hay"
+        case "Wright":
+            location.text = "Wright park"
+        case "Mansion":
+            location.text = "The Mansion"
+        case "Museum":
+            location.text = "Baguio Museum"
+        case "Bell":
+            location.text = "Bell Church"
+        case "Night":
+            location.text = "Night Market"
         default: break
         }
     }
+    
     func restartSpeechTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { (timer) in
@@ -365,18 +415,23 @@ extension VoiceMappingVC: CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //        guard let location = locations.last else {return}
-        //        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        //        let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        //        mapView.setRegion(region, animated: true)
+//        guard let location = locations.last else {return}
+//        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//        let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+//        mapView.setRegion(region, animated: false)
         print(locations)
+    }
+    
+    fileprivate func zoomInMap(){
+        let userLocation = (locationManager.location?.coordinate)!
+        let region = MKCoordinateRegion(center: userLocation, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+        mapView.setRegion(region, animated: true)
     }
     
     fileprivate func mapThis(destinationCoord: CLLocationCoordinate2D){
         let userLocation = (locationManager.location?.coordinate)!
-        //
-        //        let region = MKCoordinateRegion(center: userLocation, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        //        mapView.setRegion(region, animated: true)
+//        let region = MKCoordinateRegion(center: userLocation, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+//        mapView.setRegion(region, animated: true)
         
         let startingLocation = MKPlacemark(coordinate: userLocation)
         let destination = MKPlacemark(coordinate: destinationCoord)

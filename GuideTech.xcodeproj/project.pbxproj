@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A03B4152430A019009FFD1E /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A03B4142430A019009FFD1E /* ForgotPasswordVC.swift */; };
 		8A0C3F70241D3F54009BAF25 /* HomeVCDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C3F6F241D3F54009BAF25 /* HomeVCDetails.swift */; };
 		8A0C3F74241D5120009BAF25 /* TabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0C3F73241D5120009BAF25 /* TabVC.swift */; };
 		8A371DEE2426384F00EDB735 /* SettingsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A371DED2426384F00EDB735 /* SettingsEnum.swift */; };
@@ -54,15 +55,25 @@
 		8A6DD9922413ED5D00D52DC0 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DD9912413ED5D00D52DC0 /* Header.swift */; };
 		8A76962924276E3300791C7E /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A76962824276E3300791C7E /* Enum.swift */; };
 		8A76962C2427813200791C7E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8A76962E2427813200791C7E /* Localizable.strings */; };
+		8A7CA17624332494000066B0 /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7CA17524332494000066B0 /* KeyboardLayoutConstraint.swift */; };
+		8A7CA17824335D2A000066B0 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7CA17724335D2A000066B0 /* SpeechService.swift */; };
+		8A95F5D32432260200B9D7E1 /* MyActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A95F5D22432260200B9D7E1 /* MyActivityIndicator.swift */; };
+		8A95F5D72432499900B9D7E1 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A95F5D42432499800B9D7E1 /* ProgressHUD.bundle */; };
+		8A95F5D82432499900B9D7E1 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A95F5D62432499900B9D7E1 /* ProgressHUD.m */; };
+		8A95F5DC24325D2700B9D7E1 /* PopUpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A95F5DB24325D2700B9D7E1 /* PopUpWindow.swift */; };
 		8ABA1DAF242DFAD2008074ED /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA1DAD242DFAD2008074ED /* LoginVC.swift */; };
 		8ABA1DB0242DFAD2008074ED /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABA1DAE242DFAD2008074ED /* SignupVC.swift */; };
-		8C5A1D015EB04A47415F7CFA /* Pods_GuideTech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B743C305894F63553CF684EE /* Pods_GuideTech.framework */; };
+		8AD897702431040500D2BF7A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AD8976F2431040500D2BF7A /* GoogleService-Info.plist */; };
+		8AD8977324313E6000D2BF7A /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD8977224313E6000D2BF7A /* PassKit.framework */; };
+		A310403D0EBFDB61231A189C /* libPods-GuideTech.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 697ECF6DD155F0A5ED8E475F /* libPods-GuideTech.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		651E353752CA3ACB40767F11 /* Pods-GuideTech.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuideTech.release.xcconfig"; path = "Target Support Files/Pods-GuideTech/Pods-GuideTech.release.xcconfig"; sourceTree = "<group>"; };
 		66DC5FF12404B91E1FDFFFD8 /* Pods-GuideTech.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuideTech.debug.xcconfig"; path = "Target Support Files/Pods-GuideTech/Pods-GuideTech.debug.xcconfig"; sourceTree = "<group>"; };
+		697ECF6DD155F0A5ED8E475F /* libPods-GuideTech.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GuideTech.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A013513242F83530014C5AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8A03B4142430A019009FFD1E /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		8A0C3F6F241D3F54009BAF25 /* HomeVCDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVCDetails.swift; sourceTree = "<group>"; };
 		8A0C3F73241D5120009BAF25 /* TabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabVC.swift; sourceTree = "<group>"; };
 		8A371DED2426384F00EDB735 /* SettingsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEnum.swift; sourceTree = "<group>"; };
@@ -110,9 +121,19 @@
 		8A76962824276E3300791C7E /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		8A76962D2427813200791C7E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8A76962F2427813C00791C7E /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8A7CA17524332494000066B0 /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
+		8A7CA17724335D2A000066B0 /* SpeechService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
+		8A95F5D22432260200B9D7E1 /* MyActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityIndicator.swift; sourceTree = "<group>"; };
+		8A95F5D42432499800B9D7E1 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		8A95F5D52432499900B9D7E1 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		8A95F5D62432499900B9D7E1 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		8A95F5D9243249BE00B9D7E1 /* GuideTech-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GuideTech-Bridging-Header.h"; sourceTree = "<group>"; };
+		8A95F5DB24325D2700B9D7E1 /* PopUpWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpWindow.swift; sourceTree = "<group>"; };
+		8A96357E2431474700102CBE /* GuideTech.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GuideTech.entitlements; sourceTree = "<group>"; };
 		8ABA1DAD242DFAD2008074ED /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		8ABA1DAE242DFAD2008074ED /* SignupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
-		B743C305894F63553CF684EE /* Pods_GuideTech.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GuideTech.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AD8976F2431040500D2BF7A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8AD8977224313E6000D2BF7A /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +141,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD8977324313E6000D2BF7A /* PassKit.framework in Frameworks */,
 				8A5A625724192530007A4A1D /* SwiftyJSON in Frameworks */,
 				8A6DD9812413B52F00D52DC0 /* LBTATools in Frameworks */,
-				8C5A1D015EB04A47415F7CFA /* Pods_GuideTech.framework in Frameworks */,
+				A310403D0EBFDB61231A189C /* libPods-GuideTech.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +154,8 @@
 		4B424FB10763248ED9158034 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B743C305894F63553CF684EE /* Pods_GuideTech.framework */,
+				8AD8977224313E6000D2BF7A /* PassKit.framework */,
+				697ECF6DD155F0A5ED8E475F /* libPods-GuideTech.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -164,6 +187,9 @@
 				8A69BEFC2414A3E8004E51DF /* Extensions.swift */,
 				8A5A62532417E43E007A4A1D /* TrashBinCode.swift */,
 				8A559700241F638C004940F3 /* Protocols.swift */,
+				8A95F5D22432260200B9D7E1 /* MyActivityIndicator.swift */,
+				8A7CA17524332494000066B0 /* KeyboardLayoutConstraint.swift */,
+				8A7CA17724335D2A000066B0 /* SpeechService.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -206,6 +232,7 @@
 		8A6DD96A2413AEA900D52DC0 /* GuideTech */ = {
 			isa = PBXGroup;
 			children = (
+				8A96357E2431474700102CBE /* GuideTech.entitlements */,
 				8A69BEFE2414ABEB004E51DF /* images */,
 				8A69BEFB2414A3CB004E51DF /* utils */,
 				8A6DD9832413B83D00D52DC0 /* Model */,
@@ -216,6 +243,11 @@
 				8A6DD9742413AEAE00D52DC0 /* Assets.xcassets */,
 				8A6DD9762413AEAE00D52DC0 /* LaunchScreen.storyboard */,
 				8A6DD9792413AEAE00D52DC0 /* Info.plist */,
+				8AD8976F2431040500D2BF7A /* GoogleService-Info.plist */,
+				8A95F5D42432499800B9D7E1 /* ProgressHUD.bundle */,
+				8A95F5D52432499900B9D7E1 /* ProgressHUD.h */,
+				8A95F5D62432499900B9D7E1 /* ProgressHUD.m */,
+				8A95F5D9243249BE00B9D7E1 /* GuideTech-Bridging-Header.h */,
 			);
 			path = GuideTech;
 			sourceTree = "<group>";
@@ -223,6 +255,7 @@
 		8A6DD9822413B82F00D52DC0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8A95F5DA24325CD800B9D7E1 /* OneTimeView */,
 				8ABA1DAC242DFA38008074ED /* AuthVC */,
 				8A371DF1242644E700EDB735 /* SettingsController */,
 				8A559708241F875B004940F3 /* MenuOptionsController */,
@@ -265,11 +298,20 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8A95F5DA24325CD800B9D7E1 /* OneTimeView */ = {
+			isa = PBXGroup;
+			children = (
+				8A95F5DB24325D2700B9D7E1 /* PopUpWindow.swift */,
+			);
+			path = OneTimeView;
+			sourceTree = "<group>";
+		};
 		8ABA1DAC242DFA38008074ED /* AuthVC */ = {
 			isa = PBXGroup;
 			children = (
 				8ABA1DAD242DFAD2008074ED /* LoginVC.swift */,
 				8ABA1DAE242DFAD2008074ED /* SignupVC.swift */,
+				8A03B4142430A019009FFD1E /* ForgotPasswordVC.swift */,
 			);
 			path = AuthVC;
 			sourceTree = "<group>";
@@ -294,7 +336,6 @@
 				8A6DD9642413AEA900D52DC0 /* Sources */,
 				8A6DD9652413AEA900D52DC0 /* Frameworks */,
 				8A6DD9662413AEA900D52DC0 /* Resources */,
-				EF758032F611E06003413B4C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -321,6 +362,7 @@
 				TargetAttributes = {
 					8A6DD9672413AEA900D52DC0 = {
 						CreatedOnToolsVersion = 11.2.1;
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
@@ -360,11 +402,13 @@
 				8A69BF042414AC09004E51DF /* image1.jpg in Resources */,
 				8A69BF092414E428004E51DF /* park2.jpg in Resources */,
 				8A6DD9752413AEAE00D52DC0 /* Assets.xcassets in Resources */,
+				8A95F5D72432499900B9D7E1 /* ProgressHUD.bundle in Resources */,
 				8A5596F2241E1973004940F3 /* guidetech-06.png in Resources */,
 				8A76962C2427813200791C7E /* Localizable.strings in Resources */,
 				8A69BF022414AC09004E51DF /* image2.jpg in Resources */,
 				8A69BF032414AC09004E51DF /* image3.jpg in Resources */,
 				8A69BF0F2414ED43004E51DF /* restaurant2.jpg in Resources */,
+				8AD897702431040500D2BF7A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,23 +437,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EF758032F611E06003413B4C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GuideTech/Pods-GuideTech-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GuideTech/Pods-GuideTech-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GuideTech/Pods-GuideTech-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -424,10 +451,13 @@
 				8A371DF32426452500EDB735 /* AppearanceVC.swift in Sources */,
 				8A559701241F638C004940F3 /* Protocols.swift in Sources */,
 				8A371DF92426512200EDB735 /* LanguageCell.swift in Sources */,
+				8A7CA17824335D2A000066B0 /* SpeechService.swift in Sources */,
 				8A76962924276E3300791C7E /* Enum.swift in Sources */,
+				8A95F5D82432499900B9D7E1 /* ProgressHUD.m in Sources */,
 				8ABA1DB0242DFAD2008074ED /* SignupVC.swift in Sources */,
 				8A0C3F74241D5120009BAF25 /* TabVC.swift in Sources */,
 				8A6DD96C2413AEA900D52DC0 /* AppDelegate.swift in Sources */,
+				8A95F5DC24325D2700B9D7E1 /* PopUpWindow.swift in Sources */,
 				8A55970E241F87D4004940F3 /* HelpCenterVC.swift in Sources */,
 				8ABA1DAF242DFAD2008074ED /* LoginVC.swift in Sources */,
 				8A371DF52426453400EDB735 /* LanguageVC.swift in Sources */,
@@ -440,12 +470,15 @@
 				8A55970C241F87BF004940F3 /* SettingsVC.swift in Sources */,
 				8A371DF02426396000EDB735 /* SettingsCell.swift in Sources */,
 				8A371DF72426511900EDB735 /* AppearanceCell.swift in Sources */,
+				8A95F5D32432260200B9D7E1 /* MyActivityIndicator.swift in Sources */,
+				8A7CA17624332494000066B0 /* KeyboardLayoutConstraint.swift in Sources */,
 				8A5596F9241F5A44004940F3 /* ContainerVC.swift in Sources */,
 				8A6DD98C2413CA3300D52DC0 /* TouristSpotsCell.swift in Sources */,
 				8A559705241F6EA6004940F3 /* MenuSliderCell.swift in Sources */,
 				8A6DD9902413CA6A00D52DC0 /* BusStopCell.swift in Sources */,
 				8A6DD9882413C9A200D52DC0 /* HomeVC.swift in Sources */,
 				8A5A62542417E43E007A4A1D /* TrashBinCode.swift in Sources */,
+				8A03B4152430A019009FFD1E /* ForgotPasswordVC.swift in Sources */,
 				8A371DFB242652FB00EDB735 /* LangEnum.swift in Sources */,
 				8A3E1593242B3C830073E62B /* AboutVC.swift in Sources */,
 				8A559707241F798E004940F3 /* MenuOptions.swift in Sources */,
@@ -601,6 +634,8 @@
 			baseConfigurationReference = 66DC5FF12404B91E1FDFFFD8 /* Pods-GuideTech.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = GuideTech/GuideTech.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P2QGR75A2K;
 				INFOPLIST_FILE = GuideTech/Info.plist;
@@ -611,6 +646,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.valterandremachado.GuideTech;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GuideTech/GuideTech-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -621,6 +658,8 @@
 			baseConfigurationReference = 651E353752CA3ACB40767F11 /* Pods-GuideTech.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = GuideTech/GuideTech.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P2QGR75A2K;
 				INFOPLIST_FILE = GuideTech/Info.plist;
@@ -631,6 +670,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.valterandremachado.GuideTech;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GuideTech/GuideTech-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

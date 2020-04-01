@@ -27,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if #available(iOS 13, *) {
             window!.overrideUserInterfaceStyle = .light
         }
+    
 //        let navigationController = UINavigationController()
 //        navigationController.pushViewController(HomeVC(), animated: true)
 //        window?.rootViewController = navigationController

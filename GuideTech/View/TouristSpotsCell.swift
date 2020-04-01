@@ -103,10 +103,12 @@ extension TouristSpotsCell: UICollectionViewDelegateFlowLayout, UICollectionView
        
         cell.name.text = self.touristSpotData[indexPath.item].name?.maxLength(length: 15)
         
-        if let imageUrl = self.touristSpotData[indexPath.item].image_url{
-            Alamofire.request(imageUrl).responseImage { (response) in
-                if let image = response.result.value {
-                    cell.coverImageView.image = image
+        DispatchQueue.main.async {
+            if let imageUrl = self.touristSpotData[indexPath.item].image_url{
+                Alamofire.request(imageUrl).responseImage { (response) in
+                    if let image = response.result.value {
+                        cell.coverImageView.image = image
+                    }
                 }
             }
         }

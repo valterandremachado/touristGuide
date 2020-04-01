@@ -8,6 +8,16 @@
 
 import UIKit
 
+class Utilities {
+    static func isPasswordValid(_ password : String) -> Bool {
+        
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
+        return passwordTest.evaluate(with: password)
+    }
+    
+}
+
+
 extension Notification.Name {
     static let darkModeEnabled = Notification.Name("com.yourApp.notifications.darkModeEnabled")
     static let darkModeDisabled = Notification.Name("com.yourApp.notifications.darkModeDisabled")
@@ -20,6 +30,7 @@ extension String {
         return NSLocalizedString(self, tableName: tableName, value: "**\(self)**", comment: "")
     }
 }
+
 
 extension String {
 func localized(_ lang:String) ->String {

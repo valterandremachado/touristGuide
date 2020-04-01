@@ -6,82 +6,135 @@
   Copyright © 2020 Valter A. Machado. All rights reserved.
 */
 
-// Some Comment
+// Separator Line
 "Appearance" = "مظهر خارجي";
-// Some Comment
+// Separator Line
 "Language" = "لغة";
-// Some Comment
+// Separator Line
 "Settings" = "الإعدادات";
-// Some Comment
+// Separator Line
 "Back" = "عودة";
-// Some Comment
+// Separator Line
 "Get Directions" = "احصل على الاتجاهات";
-// Some Comment
+// Separator Line
 "Voice Mapping" = "رسم الخرائط الصوتية";
-// Some Comment
+// Separator Line
 "Help Center" = "مركز المساعدة";
 
-// Some Comment
+// Separator Line
 "Phone" = "هاتف";
-// Some Comment
+// Separator Line
 "Reviews" = "المراجعات";
-// Some Comment
+// Separator Line
 "Unavailable" = "غير متوفره";
 
-// Some Comment
+// Separator Line
 "Automatic" = "تلقائي";
-// Some Comment
+// Separator Line
 "English" = "الإنجليزية";
-// Some Comment
+// Separator Line
 "Arabic" = "عربى";
 
-// Some Comment
+// Separator Line
 "Dark" = "داكن";
-// Some Comment
+// Separator Line
 "Light" = "ضوء";
-// Some Comment
+// Separator Line
 "About" = "حول";
 
-// Some Comment
-"Signup" = "سجل";
-// Some Comment
-"Login" = "تسجيل الدخول";
-// Some Comment
-"Forgot password?" = "هل نسيت كلمة المرور؟";
-// Some Comment
-"Logout" = "تسجيل خروج";
-// Some Comment
+// MARK: - Login/signup localizer
 "Username" = "اسم المستخدم";
-// Some Comment
+// Separator Line
 "Email" = "البريد الإلكتروني";
-// Some Comment
+// Separator Line
 "Password" = "كلمه السر";
-// Some Comment
+// Separator Line
+"Sign Up" = "سجل";
+// Separator Line
+"Log In" = "تسجيل الدخول";
+// Separator Line
+"Forgot?" = "نسيت";
+// Separator Line
+"Log Out" = "تسجيل خروج";
+// Separator Line
+"Logout" = "تسجيل خروج";
+// Separator Line
+"Don't have an account?" = "لا تملك حساب؟";
+// Separator Line
+"Create your account" = "أنشئ حسابك";
+// Separator Line
 "Confirm password" = "تأكيد كلمة المرور";
 
-// Some Comment
+// MARK: - Reset password localizer
+"Enter your email address to receive a password reset, a password reset link will be sent to your inbox." = "أدخل عنوان بريدك الإلكتروني لتلقي إعادة تعيين كلمة المرور ، سيتم إرسال رابط إعادة تعيين كلمة المرور إلى صندوق البريد الوارد.";
+// Separator Line
+"Reset password" = "إعادة تعيين كلمة المرور";
+
+// MARK: - Home localizer
 "Hotels" = "الفنادق";
-// Some Comment
+// Separator Line
 "Tourist Spots" = "المواقع السياحية";
-// Some Comment
+// Separator Line
 "Restaurants" = "مطاعم";
-// Some Comment
+// Separator Line
 "Bus Stop" = "محطات الحافلات";
-// Some Comment
+// Separator Line
 "Maps" = "خرائط";
 
-// Some Comment
+// MARK: - Voice Mapping localizer
 "(Go ahead, I'm listening)" = "المضي قدما أنا أستمع";
-// Some Comment
+// Separator Line
 "Stopping..." = "وقف...";
-// Some Comment
+// Separator Line
 "Record" = "سجل";
-// Some Comment
+// Separator Line
 "Stop" = "قف";
+// Separator Line
+"Start" = "بداية";
+// Separator Line
 "Tap record to start" = "انقر فوق تسجيل للبدء";
 
+// MARK: - AlertController localizer
 "Language" = "لغة";
+// Separator Line
 "We will close your app to change language completely,  please reopen your app after so." = "سنغلق تطبيقك لتغيير اللغة تمامًا ، يرجى إعادة فتح تطبيقك بعد ذلك";
+// Separator Line
 "Ok" = "حسنا";
+// Separator Line
 "Cancel" = "إلغاء";
-
+// Separator Line
+"Are you sure you want to log out?" = "هل أنت متأكد أنك تريد تسجيل الخروج؟";
+// Separator Line
+"Incorrect Email" = "غير صحيح البريد الإلكتروني";
+// Separator Line
+"The email you entered doesn't appear to belong to an account. Please check your email and try again." = "لا يبدو أن البريد الإلكتروني الذي أدخلته ينتمي إلى حساب. يرجى التحقق من بريدك الإلكتروني وحاول مرة أخرى.";
+// Separator Line
+"Incorrect Password" = "كلمة سر خاطئة";
+// Separator Line
+"The password you entered is incorrect. Please try again." = "كلمة المرور التي أدخلتها غير صحيحة. حاول مرة اخرى.";
+// Separator Line
+"Connection Issue" = "مشكلة الاتصال";
+// Separator Line
+"We are having problem to connect with our server. Please try again." = "نواجه مشكلة في الاتصال بخادمنا. حاول مرة اخرى.";
+// Separator Line
+"Forgot Password?" = "هل نسيت كلمة المرور؟";
+// Separator Line
+"You entered many times a wrong password. Do you want to reset your password?" = "لقد أدخلت عدة مرات كلمة مرور خاطئة. هل تريد إعادة تعيين كلمة المرور الخاصة بك؟";
+// Separator Line
+"Yes" = "نعم";
+// Separator Line
+"No" = "لا";
+// Separator Line
+"OK" = "حسنا";
+// Separator Line
+"Please fill in all fields." = "يرجى تعبئة جميع الحقول.";
+// Separator Line
+"The email address is badly formatted." = "تم تنسيق عنوان البريد الإلكتروني بشكل سيئ.";
+// Separator Line
+"Email Sent!" = "أرسل البريد الإلكتروني!";
+// Separator Line
+"Please check your inbox and follow the instructions to reset your password." = "يرجى التحقق من بريدك الوارد واتباع التعليمات لإعادة تعيين كلمة المرور الخاصة بك.";
+// Separator Line
+"Missing Profile Photo." = "صورة ملف شخصي مفقودة.";
+// Separator Line
+"Please choose a profile photo." = "يرجى اختيار صورة ملف شخصي.";
