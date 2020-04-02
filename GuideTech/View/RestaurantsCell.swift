@@ -13,6 +13,7 @@ import Alamofire
 import AlamofireImage
 
 class RestaurantsCell: UICollectionViewCell {
+    
     private let cellID = "cellId"
     var restaurantData: [RestaurantModel] = []
 
@@ -21,26 +22,31 @@ class RestaurantsCell: UICollectionViewCell {
             collectionView.reloadData()
         }
     }
+    
     var names: [String]? {
         didSet{
             collectionView.reloadData()
         }
     }
+    
     var addresses: [String]? {
         didSet{
             collectionView.reloadData()
         }
     }
+    
     var descriptions: [String]? {
         didSet{
             collectionView.reloadData()
         }
     }
+    
     var reviews: [String]? {
         didSet{
             collectionView.reloadData()
         }
     }
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 10
@@ -56,16 +62,47 @@ class RestaurantsCell: UICollectionViewCell {
         return cv
     }()
     
+    private var indicator: ProgressIndicatorLarge?
+    var scheduledTimer: Timer?
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        setupActivityIndicator()
         setupView()
-        //             contentView.backgroundColor = .blue
         fetchJSONData()
     }
     
-    fileprivate func setupView(){
-        [collectionView].forEach({contentView.addSubview($0)})
+    func startTimer () {
+        guard scheduledTimer == nil else { return }
         
+        scheduledTimer =  Timer.scheduledTimer(
+            timeInterval: TimeInterval(1),
+            target      : self,
+            selector    : #selector(fetchJSONData),
+            userInfo    : nil,
+            repeats     : true)
+    }
+    
+    func stopTimerTest() {
+        scheduledTimer?.invalidate()
+        scheduledTimer = nil        
+    }
+    
+    fileprivate func setupActivityIndicator(){
+        // Setting up activity indicator
+        indicator = ProgressIndicatorLarge(inview: self,loadingViewColor: UIColor.clear, indicatorColor: UIColor.black, msg: "")
+        //        indicator?.isHidden = true
+    }
+    
+    fileprivate func setupView(){
+        [collectionView, indicator!].forEach({contentView.addSubview($0)})
+        
+        let screenRect = UIScreen.main.bounds
+        let screenWidth = screenRect.size.width
+        //        let screenHeight = screenRect.size.height
+        
+        indicator?.anchor(top: collectionView.topAnchor, leading: contentView.leadingAnchor, bottom: collectionView.bottomAnchor, trailing: contentView.trailingAnchor, padding: UIEdgeInsets(top: 110, left: screenWidth/2 - 14, bottom: 110, right: screenWidth/2 - 14))
+
         collectionView.anchor(top: contentView.safeAreaLayoutGuide.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.safeAreaLayoutGuide.bottomAnchor, trailing: contentView.trailingAnchor)
     }
     
@@ -76,8 +113,9 @@ class RestaurantsCell: UICollectionViewCell {
 
 extension RestaurantsCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    func fetchJSONData(){
-        
+    @objc func fetchJSONData(){
+        indicator?.start()
+
         let headers = [
             // API Key (required)
             "Authorization": "Bearer wQKtA45T2f-q8QSMNFqLWS742ZbSig_f7FyMO63Pg9SMwLa7SocGyC1fpqnfI0hnaLjUKB5JPNFKwzXLClt7EXm5p1haIxFrjBQ79CMxGvFB9QqpFzkdvwAxHdxsXnYx"
@@ -105,10 +143,14 @@ extension RestaurantsCell: UICollectionViewDelegateFlowLayout, UICollectionViewD
                             self.restaurantData.append(restaurantDetails)
                             //                        print(hotels)
                         })
+                        self.indicator?.stop()
+                        self.stopTimerTest()
                         self.collectionView.reloadData()
                         
                         
                     case .failure(let error):
+                        self.indicator?.start()
+                        self.startTimer()
                         print(error)
                     }
             }

@@ -7,6 +7,29 @@
 //
 
 
+// MARK: - GET API REQUEST WITH SWIFT
+//fileprivate func fetchYelpBusinesses(location: String, term: String) {
+//          let apikey = "wQKtA45T2f-q8QSMNFqLWS742ZbSig_f7FyMO63Pg9SMwLa7SocGyC1fpqnfI0hnaLjUKB5JPNFKwzXLClt7EXm5p1haIxFrjBQ79CMxGvFB9QqpFzkdvwAxHdxsXnYx"
+//          let url = URL(string: "http://api.yelp.com/v3/businesses/search?location=\(location)&term=\(term)")
+//          var request = URLRequest(url: url!)
+//          request.setValue("Bearer \(apikey)", forHTTPHeaderField: "Authorization")
+//          request.httpMethod = "get"
+//
+//          URLSession.shared.dataTask(with: request) { (data, response, error) in
+//              if let err = error {
+//                  print(err.localizedDescription)
+//              }
+//           
+//              do {
+//                  let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+//                  print(">>>>>", json, #line, "<<<<<<<<<")
+//              
+//              } catch {
+//                  print("caught")
+//              }
+//              }.resume()
+//      }
+
 
 // checkmarks
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

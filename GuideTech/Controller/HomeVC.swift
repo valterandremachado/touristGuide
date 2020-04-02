@@ -89,45 +89,46 @@ class HomeVC: UIViewController, UISearchBarDelegate {
 //    override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(true)
 //    }
+    
     fileprivate func checkUserIsLoggedIn(){
-          if Auth.auth().currentUser == nil {
-              DispatchQueue.main.async {
-                  let loginVC = LoginVC()
-                  let navigationController = UINavigationController(rootViewController: loginVC)
-                  navigationController.modalPresentationStyle = .fullScreen
-                  self.present(navigationController, animated: false, completion: nil)
-                  return
-              }
-          } else {
-              print("is Logged in")
-              let uid = Auth.auth().currentUser?.uid
-              let db = Database.database().reference().child("users").child(uid!)
-              db.observeSingleEvent(of: .value) { (snapshot) in
-                  // print(snapshot)
-                  DispatchQueue.main.async {
-                      if let dict = snapshot.value as? [String: AnyObject] {
-                          userName.text = dict["username"] as? String
-                          let profileUrl = dict["profileImageUrl"] as! String
-                          
-                          let storageRef = Storage.storage().reference(forURL: profileUrl)
-                          storageRef.downloadURL{ (url, error) in
-                              do {
-                                  guard let url = url else { return }
-                                  let data = try Data(contentsOf: url)
-                                  let image = UIImage(data: data)
-                                  profileImageView.image = image
-                              } catch {
-                                  print("no image: " + error.localizedDescription)
-                              }
-                              
-                          }
-                      }
-                  }
-                  
-              }
-          }
-          
-      }
+        if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+                let loginVC = LoginVC()
+                let navigationController = UINavigationController(rootViewController: loginVC)
+                navigationController.modalPresentationStyle = .fullScreen
+                self.present(navigationController, animated: false, completion: nil)
+                return
+            }
+        } else {
+            print("is Logged in")
+            let uid = Auth.auth().currentUser?.uid
+            let db = Database.database().reference().child("users").child(uid!)
+            db.observeSingleEvent(of: .value) { (snapshot) in
+                // print(snapshot)
+                DispatchQueue.main.async {
+                    if let dict = snapshot.value as? [String: AnyObject] {
+                        userName.text = dict["username"] as? String
+                        let profileUrl = dict["profileImageUrl"] as! String
+                        
+                        let storageRef = Storage.storage().reference(forURL: profileUrl)
+                        storageRef.downloadURL{ (url, error) in
+                            do {
+                                guard let url = url else { return }
+                                let data = try Data(contentsOf: url)
+                                let image = UIImage(data: data)
+                                profileImageView.image = image
+                            } catch {
+                                print("no image: " + error.localizedDescription)
+                            }
+                            
+                        }
+                    }
+                }
+                
+            }
+        }
+        
+    }
     
     fileprivate func setView(){
         [collectionView, transparentView2].forEach({view.addSubview($0)})

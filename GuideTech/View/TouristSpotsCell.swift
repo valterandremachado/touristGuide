@@ -32,15 +32,49 @@ class TouristSpotsCell: UICollectionViewCell {
         return cv
     }()
     
+    private var indicator: ProgressIndicatorLarge?
+    var scheduledTimer: Timer?
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
-            setupView()
-//        contentView.backgroundColor = .blue
+        setupActivityIndicator()
+        setupView()
         fetchJSONData()
     }
+    
+    func startTimer () {
+        guard scheduledTimer == nil else { return }
         
+        scheduledTimer =  Timer.scheduledTimer(
+            timeInterval: TimeInterval(1),
+            target      : self,
+            selector    : #selector(fetchJSONData),
+            userInfo    : nil,
+            repeats     : true)
+//        print("startTimer")
+    }
+    
+    func stopTimerTest() {
+        scheduledTimer?.invalidate()
+        scheduledTimer = nil
+//        print("stopTimerTest")
+    }
+    
+    fileprivate func setupActivityIndicator(){
+        // Setting up activity indicator
+        indicator = ProgressIndicatorLarge(inview: self,loadingViewColor: UIColor.clear, indicatorColor: UIColor.black, msg: "")
+//        indicator?.isHidden = true
+    }
+    
+    
     fileprivate func setupView(){
-        [collectionView].forEach({contentView.addSubview($0)})
+        [collectionView, indicator!].forEach({contentView.addSubview($0)})
+        
+        let screenRect = UIScreen.main.bounds
+        let screenWidth = screenRect.size.width
+//        let screenHeight = screenRect.size.height
+        
+        indicator?.anchor(top: collectionView.topAnchor, leading: contentView.leadingAnchor, bottom: collectionView.bottomAnchor, trailing: contentView.trailingAnchor, padding: UIEdgeInsets(top: 110, left: screenWidth/2 - 14, bottom: 110, right: screenWidth/2 - 14))
 
         collectionView.anchor(top: contentView.safeAreaLayoutGuide.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.safeAreaLayoutGuide.bottomAnchor, trailing: contentView.trailingAnchor)
     }
@@ -53,7 +87,8 @@ class TouristSpotsCell: UICollectionViewCell {
 extension TouristSpotsCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     
-    func fetchJSONData(){
+    @objc func fetchJSONData(){
+        indicator?.start()
         
         let headers = [
             // API Key (required)
@@ -82,10 +117,14 @@ extension TouristSpotsCell: UICollectionViewDelegateFlowLayout, UICollectionView
                             self.touristSpotData.append(spotsDetails)
                             //                        print(hotels)
                         })
+                        self.indicator?.stop()
+                        self.stopTimerTest()
                         self.collectionView.reloadData()
                         
                         
                     case .failure(let error):
+                        self.indicator?.start()
+                        self.startTimer()
                         print(error)
                     }
             }

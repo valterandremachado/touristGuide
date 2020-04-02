@@ -11,8 +11,7 @@ import LBTATools
 import Alamofire
 import SwiftyJSON
 import AlamofireImage
-//import ShimmerSwift
-
+import Firebase
 
 
 class HotelsCell: UICollectionViewCell {
@@ -44,19 +43,51 @@ class HotelsCell: UICollectionViewCell {
         return cv
     }()
     
-   
+    var scheduledTimer: Timer? //.scheduledTimer(timeInterval: 0.4, target: self,selector: #selector(fetchJSONData), userInfo: nil, repeats: true)
+    private var indicator: ProgressIndicatorLarge?
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
-      
-        fetchJSONData()
+        setupActivityIndicator()
         setupView()
+        fetchJSONData()
+    }
+    
+    func startTimer () {
+      guard scheduledTimer == nil else { return }
+
+      scheduledTimer =  Timer.scheduledTimer(
+          timeInterval: TimeInterval(1),
+          target      : self,
+          selector    : #selector(fetchJSONData),
+          userInfo    : nil,
+          repeats     : true)
+        hotelsData.removeAll()
+        print("startTimer")
+    }
+    
+    func stopTimerTest() {
+        scheduledTimer?.invalidate()
+        scheduledTimer = nil
+        print("stopTimerTest")
         
-        //        contentView.backgroundColor = .blue
+    }
+    
+    fileprivate func setupActivityIndicator(){
+        // Setting up activity indicator
+        indicator = ProgressIndicatorLarge(inview: self,loadingViewColor: UIColor.clear, indicatorColor: UIColor.black, msg: "")
+//        indicator?.isHidden = true
     }
     
     
     fileprivate  func setupView(){
-        [collectionView].forEach({contentView.addSubview($0)})
+        [collectionView, indicator!].forEach({contentView.addSubview($0)})
+        
+        let screenRect = UIScreen.main.bounds
+        let screenWidth = screenRect.size.width
+        //        let screenHeight = screenRect.size.height
+        
+        indicator?.anchor(top: collectionView.topAnchor, leading: contentView.leadingAnchor, bottom: collectionView.bottomAnchor, trailing: contentView.trailingAnchor, padding: UIEdgeInsets(top: 110, left: screenWidth/2 - 14, bottom: 110, right: screenWidth/2 - 14))
         
         collectionView.anchor(top: contentView.safeAreaLayoutGuide.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.safeAreaLayoutGuide.bottomAnchor, trailing: contentView.trailingAnchor)
     }
@@ -68,53 +99,66 @@ class HotelsCell: UICollectionViewCell {
 
 extension HotelsCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    func fetchJSONData(){
-        
+    @objc func fetchJSONData(){
+        indicator?.start()
         let headers = [
             // API Key (required)
             "Authorization": "Bearer wQKtA45T2f-q8QSMNFqLWS742ZbSig_f7FyMO63Pg9SMwLa7SocGyC1fpqnfI0hnaLjUKB5JPNFKwzXLClt7EXm5p1haIxFrjBQ79CMxGvFB9QqpFzkdvwAxHdxsXnYx"
         ]
         
-        let url = "https://api.yelp.com/v3/businesses/search?location=baguio&term=hotels"
+        let param = ["location": "baguiocity",
+                     "term": "hotels" ]
         
-        DispatchQueue.main.async {
-            
-            Alamofire.request(url, method: .get, headers: headers)
+        let url = "https://api.yelp.com/v3/businesses/search"
+//        let url = "https://api.yelp.com/v3/businesses/search?find_desc=hotels&location=Baguio%2C%20Benguet%2C%20Philippines&start=20"
+        
+//        DispatchQueue.main.async {
+//            let manager = Alamofire.SessionManager.default
+//            manager.session.configuration.timeoutIntervalForRequest = 2
+        
+        Alamofire.request(url, method: .get, parameters: param, headers: headers)
                 .responseJSON { response in
-                    if response.error != nil {
-                        print("Yelp Api error")
-                    }
-                    //                guard let data = response.data else {return}
-                    //                print(data)
-                    //                print(response.result.value)
+                   
+                    //    guard let data = response.data else {return}
+                    //    print(data)
+                    //    print(response.result.value)
                     
                     switch response.result {
                     case .success(let value):
                         let json = JSON(value)
+                        
                         json["businesses"].array?.forEach({ (hotels) in
                             let hotelLocationNested = hotels["location"]["address1"]
                             
                             let hotelLat = hotels["coordinates"]["latitude"]
                             let hotelLong = hotels["coordinates"]["longitude"]
-
                             //                        print(nested)
                             let hotelsDetails = HotelsModel(name: hotels["name"].stringValue, location: hotelLocationNested.stringValue, rating: hotels["rating"].double, image_url: hotels["image_url"].stringValue, price: hotels["price"].stringValue, phone: hotels["phone"].stringValue, latitude: hotelLat.float, longitude: hotelLong.float)
+                            
                             self.hotelsData.append(hotelsDetails)
                             //                        print(hotels)
                         })
+                        self.indicator?.stop()
+                        self.stopTimerTest()
                         self.collectionView.reloadData()
                         
-                        
                     case .failure(let error):
+                        //                        let errorCode = error._code
+                        //                        let errorDomain = error._domain
+                        ////                        let userInfo = error._userInfo
+                        //                        print("Request failed with error: \(error), code: \(errorCode), domain: \(errorDomain)")
+                        ////                        failure(error)
+                        self.indicator?.start()
+                        self.startTimer()
                         print(error)
                     }
-            }
+//            }
         }
         
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return hotelsData.count
+        return min(15, hotelsData.count) 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -64,11 +64,12 @@
 		<!-- <string>UIInterfaceOrientationLandscapeLeft</string> -->
 		<!-- <string>UIInterfaceOrientationLandscapeRight</string> -->
 	</array>
+    <!-- http and https security pass -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>hotellook.com</key>
+			<key>yelp.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
@@ -79,5 +80,7 @@
 			</dict>
 		</dict>
 	</dict>
+    
 </dict>
+
 </plist>
