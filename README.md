@@ -17,7 +17,6 @@
 * Browse nearby hotels, tourist spots and bus stations fetched from Yelp API and RapidAPI
 * Turn by turn navigation
 * Two languages (English and Arabic)
-* JSON API parsed using URLSession 
 * Voice navigation
 * Implemented programmatically (no storyboard)
 * MVC Design Pattern
@@ -25,6 +24,8 @@
 ### Technologies
 * UIKit
 * MapKit
+* Alamofire
+* SwiftyJSON
 * Speech (SFSpeechRecognizer)
 * Localization
 * Firebase
